@@ -24,9 +24,9 @@ export const sendEmail = async ({
       provider: resend({ token: config.env.resend.resend_token }),
     },
     body: {
-      from: "Elevate Films <marketing.busqueseucorretor.com.br>",
+      from: "Elevate Films <busqueseucorretor.com.br>",
       to: [email],
-      subject: subject,
+      subject,
       html: message,
     },
   })
