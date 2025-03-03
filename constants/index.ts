@@ -1,17 +1,3 @@
-export const navigationLinks = [
-  {
-    href: "/library",
-    label: "Library",
-  },
-
-  {
-    img: "/icons/user.svg",
-    selectedImg: "/icons/user-fill.svg",
-    href: "/my-profile",
-    label: "My Profile",
-  },
-]
-
 export const adminSideBarLinks = [
   {
     img: "/icons/admin/home.svg",
@@ -20,23 +6,13 @@ export const adminSideBarLinks = [
   },
   {
     img: "/icons/admin/users.svg",
-    route: "/admin/users",
-    text: "All Users",
+    route: "/admin/gears",
+    text: "All Gears",
   },
   {
     img: "/icons/admin/book.svg",
     route: "/admin/books",
     text: "All Books",
-  },
-  {
-    img: "/icons/admin/bookmark.svg",
-    route: "/admin/borrow-records",
-    text: "Borrow Records",
-  },
-  {
-    img: "/icons/admin/user.svg",
-    route: "/admin/account-requests",
-    text: "Account Requests",
   },
 ]
 

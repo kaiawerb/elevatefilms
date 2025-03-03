@@ -8,6 +8,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn, getInitials } from "@/lib/utils"
 import { Session } from "next-auth"
+import { Button } from "@/components/ui/button"
+import { signOut } from "@/auth"
 
 const Header = ({ session }: { session: Session }) => {
   const pathname = usePathname()
@@ -27,6 +29,17 @@ const Header = ({ session }: { session: Session }) => {
             )}
           >
             Library
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/admin"
+            className={cn(
+              "text-base cursor-pointer capitalize",
+              pathname === "/admin" ? "text-light-200" : "text-light-100"
+            )}
+          >
+            Dashboard
           </Link>
         </li>
         <li>

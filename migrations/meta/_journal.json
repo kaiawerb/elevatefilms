@@ -15,6 +15,48 @@
       "when": 1740339929023,
       "tag": "0001_bent_black_crow",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1741026726709,
+      "tag": "0002_cooing_spitfire",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1741030167518,
+      "tag": "0003_sloppy_mephistopheles",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1741031144321,
+      "tag": "0004_flashy_iceman",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1741032181686,
+      "tag": "0005_tidy_valkyrie",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1741032786619,
+      "tag": "0006_funny_blade",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1741033867517,
+      "tag": "0007_lowly_northstar",
+      "breakpoints": true
     }
   ]
 }
