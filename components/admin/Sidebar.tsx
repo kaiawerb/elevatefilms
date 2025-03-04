@@ -7,6 +7,9 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Session } from "next-auth"
+import { LogOutIcon } from "lucide-react"
+import { Button } from "../ui/button"
+import { signOut } from "next-auth/react" // Import correto para client-side
 
 const Sidebar = ({ session }: { session: Session }) => {
   const pathName = usePathname()
@@ -22,7 +25,7 @@ const Sidebar = ({ session }: { session: Session }) => {
             width={37}
           />
 
-          <h1>BookWise</h1>
+          <h1>Syncwise</h1>
         </div>
         <div className="mt-10 flex flex-col gap-5">
           {adminSideBarLinks.map((link) => {
@@ -58,17 +61,24 @@ const Sidebar = ({ session }: { session: Session }) => {
         </div>
       </div>
 
-      <div className="user">
+      <div className="user items-center">
         <Avatar>
-          <AvatarFallback className="bg-amber-100 ">
+          <AvatarFallback className="bg-gray-200">
             {getInitials(session?.user?.name || "JD")}
           </AvatarFallback>
         </Avatar>
-
         <div className="flex flex-col max-md:hidden">
           <p className="font-semibold text-dark-200">{session?.user?.name}</p>
           <p className="text-xs text-light-500">{session?.user?.email}</p>
         </div>
+
+        <Button
+          className="rounded-full hover:bg-transparent"
+          variant="ghost"
+          onClick={() => signOut()}
+        >
+          <LogOutIcon className="text-red-600" />
+        </Button>
       </div>
     </div>
   )

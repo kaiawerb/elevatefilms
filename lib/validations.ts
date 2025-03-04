@@ -41,7 +41,7 @@ export const gearSchema = z.object({
     .string()
     .min(2, "O número de série deve ter pelo menos 2 caracteres."),
   purchaseDate: z.date(), // Data de aquisição
-  purchaseValue: z.number().positive("O valor de aquisição deve ser positivo."),
+  purchaseValue: z.string(),
   status: z
     .enum(["AVAILABLE", "IN_USE", "UNDER_MAINTENANCE", "INACTIVE"], {
       message:
@@ -49,4 +49,20 @@ export const gearSchema = z.object({
     })
     .default("AVAILABLE"),
   notes: z.string().optional(), // Observações adicionais
+})
+
+export const companySchema = z.object({
+  id: z.string().uuid().optional(), // ID gerado automaticamente
+  name: z
+    .string()
+    .min(2, "O nome da empresa deve ter pelo menos 2 caracteres."),
+  cnpj: z
+    .string()
+    .regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido."),
+  address: z.string(), // Endereço pode ser opcional
+  phone: z
+    .string()
+    .regex(/^\(?\d{2}\)?\s?\d{4,5}-\d{4}$/, "Telefone inválido."),
+  email: z.string().email("E-mail inválido."),
+  createdAt: z.date().default(new Date()), // Data de criação padrão
 })

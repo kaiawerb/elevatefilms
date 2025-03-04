@@ -5,7 +5,12 @@ export const adminSideBarLinks = [
     text: "Home",
   },
   {
-    img: "/icons/admin/users.svg",
+    img: "/icons/admin/building-2.svg",
+    route: "/admin/companies",
+    text: "All Companies",
+  },
+  {
+    img: "/icons/admin/camera.svg",
     route: "/admin/gears",
     text: "All Gears",
   },

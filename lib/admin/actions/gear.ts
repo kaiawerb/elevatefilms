@@ -6,14 +6,14 @@ import { GearParams } from "@/types"
 
 export const createGear = async (params: GearParams) => {
   try {
-    const newBook = await db
+    const newGear = await db
       .insert(gears)
-      .values({ ...params, purchaseValue: params.purchaseValue.toString() })
+      .values({ ...params })
       .returning()
 
     return {
       success: true,
-      data: JSON.parse(JSON.stringify(newBook[0])),
+      data: JSON.parse(JSON.stringify(newGear[0])),
     }
   } catch (error) {
     console.log(error)

@@ -50,7 +50,7 @@ interface Gear {
   model: string // Modelo do equipamento
   serialNumber: string // Número de série do equipamento
   purchaseDate: Date | null // Data de aquisição
-  purchaseValue: number // Valor de aquisição (em formato de string para evitar problemas com decimais)
+  purchaseValue: string // Valor de aquisição (em formato de string para evitar problemas com decimais)
   status: string // Status do equipamento (ex.: Disponível, Em uso, Em manutenção, Inativo)
   notes?: string // Observações adicionais (opcional)
   createdAt?: Date | null // Data de criação (opcional, pois pode ser gerada automaticamente)
@@ -63,7 +63,25 @@ interface GearParams {
   model: string
   serialNumber: string
   purchaseDate: Date // Obrigatório
-  purchaseValue: number
+  purchaseValue: string
   status: "AVAILABLE" | "IN_USE" | "UNDER_MAINTENANCE" | "INACTIVE"
   notes?: string
+}
+
+interface Company {
+  id?: string
+  name: string
+  cnpj: string
+  address: string
+  phone: string
+  email?: string
+  createdAt?: Date | null
+}
+
+interface CompanyParams {
+  name: string
+  cnpj: string
+  address: string
+  phone: string
+  email: string
 }

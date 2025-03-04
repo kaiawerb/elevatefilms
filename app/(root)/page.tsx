@@ -18,12 +18,7 @@ const Home = async () => {
 
   return (
     <>
-      <BookOverview {...lastestBooks[0]} />
-      <BookList
-        title="Latest Books"
-        books={lastestBooks.slice(1)}
-        containerClassName="mt-28"
-      />
+      <h1 className="text-white font-bold text-3xl">Coming Soon</h1>
     </>
   )
 }

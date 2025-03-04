@@ -11,6 +11,7 @@ import ratelimit from "../ratelimit"
 import { redirect } from "next/navigation"
 import { workflowClient } from "../worflow"
 import config from "../config"
+import { signOut } from "next-auth/react"
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, "email" | "password">

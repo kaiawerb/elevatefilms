@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import React from "react"
-
 import {
   Table,
   TableBody,
@@ -11,25 +10,26 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { auth } from "@/auth"
 import { db } from "@/database/drizzle"
-import { Company, Gear } from "@/types"
-import { gears } from "@/database/schema"
+import { Company } from "@/types"
+import { companies } from "@/database/schema"
 import { desc } from "drizzle-orm"
 
 const Page = async () => {
-  const gearList = (await db
+  const companiesList = (await db
     .select()
-    .from(gears)
+    .from(companies)
     .limit(10)
-    .orderBy(desc(gears.createdAt))) as Gear[]
-
+    .orderBy(desc(companies.createdAt))) as Company[]
+    
   return (
     <section className="w-full rounded-2xl bg-white p-7">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold">All Gears</h2>
+        <h2 className="text-xl font-semibold">All Companies</h2>
         <Button className="bg-primary-admin" asChild>
-          <Link href="/admin/gears/new" className="text-white">
-            + New User
+          <Link href="/admin/companies/new" className="text-white">
+            + New Companie
           </Link>
         </Button>
       </div>
@@ -42,17 +42,15 @@ const Page = async () => {
               <TableHead>CNPJ</TableHead>
               <TableHead>E-mail</TableHead>
               <TableHead>Phone</TableHead>
-              <TableHead>a</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {gearList.map((gearItem) => (
-              <TableRow key={gearItem.id}>
-                <TableCell className="font-medium">{gearItem.name}</TableCell>
-                <TableCell>{gearItem.type}</TableCell>
-                <TableCell>{gearItem.serialNumber}</TableCell>
-                <TableCell>{gearItem.purchaseValue}</TableCell>
-                <TableCell>{gearItem.status}</TableCell>
+            {companiesList.map((company) => (
+              <TableRow key={company.id}>
+                <TableCell className="font-medium">{company.name}</TableCell>
+                <TableCell>{company.cnpj}</TableCell>
+                <TableCell>{company.email}</TableCell>
+                <TableCell className="text-right">{company.phone}</TableCell>
               </TableRow>
             ))}
           </TableBody>
