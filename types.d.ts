@@ -9,6 +9,9 @@ interface AuthCredentials {
 interface User {
   id: string
   fullname: string
+  email: string
+  status: string
+  companyId: string
 }
 
 interface Book {
@@ -43,17 +46,17 @@ interface BookParams {
 }
 
 interface Gear {
-  id?: string // Opcional, pois pode ser gerado automaticamente
-  name: string // Nome do equipamento
-  type: string // Tipo do equipamento (ex.: Drone, Câmera, Lente, Acessório)
-  brand: string // Marca do equipamento
-  model: string // Modelo do equipamento
-  serialNumber: string // Número de série do equipamento
-  purchaseDate: Date | null // Data de aquisição
-  purchaseValue: string // Valor de aquisição (em formato de string para evitar problemas com decimais)
-  status: string // Status do equipamento (ex.: Disponível, Em uso, Em manutenção, Inativo)
-  notes?: string // Observações adicionais (opcional)
-  createdAt?: Date | null // Data de criação (opcional, pois pode ser gerada automaticamente)
+  id?: string
+  name: string
+  type: string
+  brand: string
+  model: string
+  serialNumber: stringo
+  purchaseDate: Date | null
+  purchaseValue: string
+  status: string
+  notes?: string
+  createdAt?: Date | null
 }
 
 interface GearParams {
@@ -62,7 +65,7 @@ interface GearParams {
   brand: string
   model: string
   serialNumber: string
-  purchaseDate: Date // Obrigatório
+  purchaseDate: Date
   purchaseValue: string
   status: "AVAILABLE" | "IN_USE" | "UNDER_MAINTENANCE" | "INACTIVE"
   notes?: string

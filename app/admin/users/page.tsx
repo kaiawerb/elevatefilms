@@ -12,16 +12,24 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { db } from "@/database/drizzle"
-import { Company, Gear } from "@/types"
-import { gears } from "@/database/schema"
-import { desc } from "drizzle-orm"
+import { User } from "@/types"
+import { companies, users } from "@/database/schema"
+import { desc, eq } from "drizzle-orm"
+import { capitalizeFirstLetter } from "@/lib/utils"
 
 const Page = async () => {
-  const gearList = (await db
-    .select()
-    .from(gears)
+  const userList = await db
+    .select({
+      id: users.id,
+      fullname: users.fullname,
+      email: users.email,
+      status: users.status,
+      companyName: companies.name, // Apenas pega o nome da empresa
+    })
+    .from(users)
+    .leftJoin(companies, eq(users.companyId, companies.id)) // Faz o join corretamente
     .limit(10)
-    .orderBy(desc(gears.createdAt))) as Gear[]
+    .orderBy(desc(users.createdAt))
 
   return (
     <section className="w-full rounded-2xl bg-white p-7">
@@ -29,7 +37,7 @@ const Page = async () => {
         <h2 className="text-xl font-semibold">All Gears</h2>
         <Button className="bg-primary-admin" asChild>
           <Link href="/admin/gears/new" className="text-white">
-            + New Gear
+            + New User
           </Link>
         </Button>
       </div>
@@ -39,20 +47,17 @@ const Page = async () => {
           <TableHeader>
             <TableRow>
               <TableHead>Name</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Brand</TableHead>
-              <TableHead>Model</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>Date Joined</TableHead>
+              <TableHead>Phone</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {gearList.map((gearItem) => (
-              <TableRow key={gearItem.id}>
-                <TableCell className="font-medium">{gearItem.name}</TableCell>
-                <TableCell>{gearItem.type}</TableCell>
-                <TableCell>{gearItem.brand}</TableCell>
-                <TableCell>{gearItem.model}</TableCell>
-                <TableCell>{gearItem.status}</TableCell>
+            {userList.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell className="font-medium">{user.fullname}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{capitalizeFirstLetter(user.status)}</TableCell>
+                <TableCell>{user.companyName}</TableCell>
               </TableRow>
             ))}
           </TableBody>

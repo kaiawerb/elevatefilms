@@ -22,7 +22,7 @@ const Page = async () => {
     .from(companies)
     .limit(10)
     .orderBy(desc(companies.createdAt))) as Company[]
-    
+
   return (
     <section className="w-full rounded-2xl bg-white p-7">
       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -50,7 +50,7 @@ const Page = async () => {
                 <TableCell className="font-medium">{company.name}</TableCell>
                 <TableCell>{company.cnpj}</TableCell>
                 <TableCell>{company.email}</TableCell>
-                <TableCell className="text-right">{company.phone}</TableCell>
+                <TableCell>{company.phone}</TableCell>
               </TableRow>
             ))}
           </TableBody>

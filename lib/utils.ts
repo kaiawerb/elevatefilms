@@ -14,3 +14,8 @@ export const getInitials = (name: string): string =>
     .join("")
     .toUpperCase()
     .slice(0, 2)
+
+export const capitalizeFirstLetter = (str: string | null) => {
+  if (!str) return "Unknown" // Ou outra string padrão
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+}

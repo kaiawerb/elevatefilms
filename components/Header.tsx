@@ -8,8 +8,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn, getInitials } from "@/lib/utils"
 import { Session } from "next-auth"
-import { Button } from "@/components/ui/button"
-import { signOut } from "@/auth"
 
 const Header = ({ session }: { session: Session }) => {
   const pathname = usePathname()
