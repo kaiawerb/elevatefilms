@@ -10,9 +10,9 @@ const Page = () => (
     type="SIGN_UP"
     schema={signUpSchema}
     defaultValues={{
+      fullname: "",
       email: "",
       password: "",
-      fullname: "",
     }}
     onSubmit={signUp}
   />

@@ -57,6 +57,27 @@
       "when": 1741033867517,
       "tag": "0007_lowly_northstar",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1741362510571,
+      "tag": "0008_skinny_jean_grey",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1741368947673,
+      "tag": "0009_serious_glorian",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1741381982555,
+      "tag": "0010_confused_captain_midlands",
+      "breakpoints": true
     }
   ]
 }

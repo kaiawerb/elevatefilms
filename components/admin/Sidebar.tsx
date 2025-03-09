@@ -10,6 +10,7 @@ import { Session } from "next-auth"
 import { LogOutIcon } from "lucide-react"
 import { Button } from "../ui/button"
 import { signOut } from "next-auth/react" // Import correto para client-side
+import config from "@/lib/config"
 
 const Sidebar = ({ session }: { session: Session }) => {
   const pathName = usePathname()

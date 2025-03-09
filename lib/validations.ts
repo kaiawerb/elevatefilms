@@ -48,6 +48,7 @@ export const gearSchema = z.object({
         "O status deve ser AVAILABLE, IN_USE, UNDER_MAINTENANCE ou INACTIVE.",
     })
     .default("AVAILABLE"),
+  coverUrl: z.string(),
   notes: z.string().optional(), // Observações adicionais
 })
 

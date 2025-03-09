@@ -8,10 +8,14 @@ interface AuthCredentials {
 
 interface User {
   id: string
+  image: string
   fullname: string
   email: string
   status: string
   companyId: string
+  createdAt: Date | null
+  role: string
+  phone: string
 }
 
 interface Book {
@@ -56,6 +60,7 @@ interface Gear {
   purchaseValue: string
   status: string
   notes?: string
+  coverUrl: string
   createdAt?: Date | null
 }
 
@@ -68,6 +73,7 @@ interface GearParams {
   purchaseDate: Date
   purchaseValue: string
   status: "AVAILABLE" | "IN_USE" | "UNDER_MAINTENANCE" | "INACTIVE"
+  coverUrl: string
   notes?: string
 }
 

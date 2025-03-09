@@ -39,6 +39,7 @@ import { Calendar } from "@/components/ui/calendar"
 import React from "react"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
+import FileUpload from "@/components/FileUpload"
 
 interface Props extends Partial<Gear> {
   type?: "create" | "update"
@@ -58,6 +59,7 @@ const GearForm = ({ type, ...gear }: Props) => {
       purchaseDate: new Date(),
       purchaseValue: "",
       status: undefined,
+      coverUrl: "",
       notes: "",
     },
   })
@@ -81,7 +83,6 @@ const GearForm = ({ type, ...gear }: Props) => {
     }
   }
 
-  const [date, setDate] = React.useState<Date>()
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -118,7 +119,7 @@ const GearForm = ({ type, ...gear }: Props) => {
                   <SelectTrigger>
                     <SelectValue
                       className="text-base font-normal text-dark-500"
-                      placeholder="Select a verified email to display"
+                      placeholder="Select a type to display"
                     />
                   </SelectTrigger>
                 </FormControl>
@@ -215,9 +216,9 @@ const GearForm = ({ type, ...gear }: Props) => {
         />
         <FormField
           control={form.control}
-          name={"purchaseDate"}
+          name="purchaseDate"
           render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
+            <FormItem className="flex flex-col gap-1">
               <FormLabel className="text-base font-normal text-dark-500">
                 Purchase Date
               </FormLabel>
@@ -228,12 +229,12 @@ const GearForm = ({ type, ...gear }: Props) => {
                       variant={"outline"}
                       className={cn(
                         "book-form_input justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
+                        !field.value && "text-muted-foreground"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
-                      {date ? (
-                        format(date, "PPP")
+                      {field.value ? (
+                        format(new Date(field.value), "PPP")
                       ) : (
                         <span className="text-base font-normal">
                           Pick a date
@@ -244,8 +245,10 @@ const GearForm = ({ type, ...gear }: Props) => {
                   <PopoverContent className="w-auto p-0">
                     <Calendar
                       mode="single"
-                      selected={date}
-                      onSelect={setDate}
+                      selected={field.value ? new Date(field.value) : undefined}
+                      onSelect={(selectedDate) => {
+                        field.onChange(selectedDate) // Atualiza o formulário
+                      }}
                       initialFocus
                     />
                   </PopoverContent>
@@ -280,14 +283,14 @@ const GearForm = ({ type, ...gear }: Props) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-base font-normal text-dark-500">
-                Type
+                Status
               </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl className="book-form_input">
                   <SelectTrigger>
                     <SelectValue
                       className="text-base font-normal text-dark-500"
-                      placeholder="Select a verified email to display"
+                      placeholder="Select a status to display"
                     />
                   </SelectTrigger>
                 </FormControl>
@@ -318,6 +321,29 @@ const GearForm = ({ type, ...gear }: Props) => {
                   </SelectItem>
                 </SelectContent>
               </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name={"coverUrl"}
+          render={({ field }) => (
+            <FormItem className="flex flex-col gap-1">
+              <FormLabel className="text-base font-normal text-dark-500">
+                Gear Image
+              </FormLabel>
+              <FormControl>
+                <FileUpload
+                  type="image"
+                  accept="image/*"
+                  placeholder="Upload a gear image"
+                  folder="gear/covers"
+                  variant="light"
+                  onFileChange={field.onChange}
+                  value={field.value}
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

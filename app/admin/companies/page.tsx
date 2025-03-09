@@ -37,7 +37,7 @@ const Page = async () => {
       <div className="mt-7 w-full overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="text-sm font-bold">
               <TableHead>Name</TableHead>
               <TableHead>CNPJ</TableHead>
               <TableHead>E-mail</TableHead>
@@ -46,7 +46,7 @@ const Page = async () => {
           </TableHeader>
           <TableBody>
             {companiesList.map((company) => (
-              <TableRow key={company.id}>
+              <TableRow className="text-sm font-medium" key={company.id}>
                 <TableCell className="font-medium">{company.name}</TableCell>
                 <TableCell>{company.cnpj}</TableCell>
                 <TableCell>{company.email}</TableCell>

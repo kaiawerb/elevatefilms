@@ -8,7 +8,7 @@ import type { ToastActionElement, ToastProps } from "@/components/ui/toast"
 const THIRTY_SEC_IN_MS = 30000
 
 const TOAST_LIMIT = 2
-const TOAST_REMOVE_DELAY = THIRTY_SEC_IN_MS
+const TOAST_REMOVE_DELAY = THIRTY_SEC_IN_MS / 2
 
 type ToasterToast = ToastProps & {
   id: string

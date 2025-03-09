@@ -25,6 +25,7 @@ export const companies = pgTable("companies", {
 
 export const users = pgTable("users", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+  image: text("image").default("/user/profileImage/profileUrlPlaceHolder.png"),
   fullname: varchar("full_name", { length: 255 }).notNull(),
   email: text("email").notNull().unique(),
   password: text("password").notNull(),
@@ -69,5 +70,6 @@ export const gears = pgTable("gear_equipments", {
   purchaseValue: varchar("purchase_value", { length: 20 }).notNull(), // Valor de aquisição (em formato de string para evitar problemas com decimais)
   status: varchar("status", { length: 50 }).notNull().default("AVAILABLE"), // Status do equipamento (ex.: Disponível, Em uso, Em manutenção, Inativo)
   notes: text("notes"), // Observações adicionais
+  coverUrl: text("cover_url").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(), // Data de criação
 })

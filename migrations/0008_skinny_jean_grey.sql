@@ -1,0 +1,1 @@
+ALTER TABLE "gear_equipments" ADD COLUMN "cover_url" text NOT NULL;

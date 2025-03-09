@@ -12,9 +12,13 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { db } from "@/database/drizzle"
-import { Company, Gear } from "@/types"
+import { Gear } from "@/types"
 import { gears } from "@/database/schema"
 import { desc } from "drizzle-orm"
+
+import config from "@/lib/config"
+import Image from "next/image"
+import { capitalizeFirstLetter } from "@/lib/utils"
 
 const Page = async () => {
   const gearList = (await db
@@ -37,22 +41,36 @@ const Page = async () => {
       <div className="mt-7 w-full overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="text-sm font-bold">
               <TableHead>Name</TableHead>
               <TableHead>Type</TableHead>
               <TableHead>Brand</TableHead>
               <TableHead>Model</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {gearList.map((gearItem) => (
-              <TableRow key={gearItem.id}>
-                <TableCell className="font-medium">{gearItem.name}</TableCell>
-                <TableCell>{gearItem.type}</TableCell>
-                <TableCell>{gearItem.brand}</TableCell>
+              <TableRow key={gearItem.id} className="text-sm font-semibold">
+                <TableCell className="flex items-center gap-2 ">
+                  <Image
+                    src={`${config.env.imagekit.urlEndpoint}${gearItem.coverUrl}`}
+                    alt="Gear Cover"
+                    width={64}
+                    height={64}
+                    className="object-cover rounded-sm"
+                  />
+                  {gearItem.name}
+                </TableCell>
+                <TableCell>{capitalizeFirstLetter(gearItem.type)}</TableCell>
+                <TableCell>
+                  {gearItem.purchaseDate
+                    ? gearItem.purchaseDate.toLocaleDateString()
+                    : "N/A"}
+                </TableCell>
                 <TableCell>{gearItem.model}</TableCell>
-                <TableCell>{gearItem.status}</TableCell>
+                <TableCell>{capitalizeFirstLetter(gearItem.status)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
