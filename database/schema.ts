@@ -10,8 +10,27 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core"
 
-export const STATUS_ENUM = pgEnum("status", ["PENDING", "APPROVED", "REJECTED"])
 export const ROLE_ENUM = pgEnum("role", ["USER", "ADMIN"])
+
+export const users = pgTable("users", {
+  id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+  image: text("image").default("/user/profileImage/profileUrlPlaceHolder.png"),
+  fullname: varchar("full_name", { length: 255 }).notNull(),
+  age: integer("age"),
+  genre: varchar("genre", { length: 50 }),
+  email: text("email").notNull().unique(),
+  password: text("password").notNull(),
+  role: ROLE_ENUM("role").default("USER"),
+  lastActivityDate: date("last_activity_date").defaultNow(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  cpf: varchar("cpf", { length: 14 }).unique(),
+  phone: varchar("phone", { length: 15 }),
+  address: text("address"),
+  companyId: uuid("company_id").references(() => companies.id, {
+    onDelete: "cascade",
+  }),
+  notes: text("notes"),
+})
 
 export const companies = pgTable("companies", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
@@ -21,25 +40,6 @@ export const companies = pgTable("companies", {
   phone: varchar("phone", { length: 15 }), // Telefone da empresa
   email: text("email").unique(), // E-mail da empresa
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
-})
-
-export const users = pgTable("users", {
-  id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
-  image: text("image").default("/user/profileImage/profileUrlPlaceHolder.png"),
-  fullname: varchar("full_name", { length: 255 }).notNull(),
-  email: text("email").notNull().unique(),
-  password: text("password").notNull(),
-  status: STATUS_ENUM("status").default("PENDING"),
-  role: ROLE_ENUM("role").default("USER"),
-  lastActivityDate: date("last_activity_date").defaultNow(),
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
-
-  cpf: varchar("cpf", { length: 14 }).unique(), // CPF com máscara (ex.: 000.000.000-00)
-  phone: varchar("phone", { length: 15 }), // Telefone com máscara (ex.: +55 (11) 99999-9999)
-  address: text("address"), // Endereço completo
-  companyId: uuid("company_id").references(() => companies.id), // Relacionamento com a tabela de empresas
-  roleInCompany: varchar("role_in_company", { length: 100 }).default("Nenhum"), // Cargo/Função na empresa
-  notes: text("notes"), // Observações adicionais
 })
 
 export const books = pgTable("books", {
@@ -60,16 +60,17 @@ export const books = pgTable("books", {
 })
 
 export const gears = pgTable("gear_equipments", {
-  id: uuid("id").notNull().primaryKey().defaultRandom().unique(), // UUID gerado automaticamente
-  name: varchar("name", { length: 255 }).notNull(), // Nome do equipamento
-  type: varchar("type", { length: 50 }).notNull(), // Tipo do equipamento (ex.: Drone, Câmera, Lente, Acessório)
-  brand: varchar("brand", { length: 255 }).notNull(), // Marca do equipamento
-  model: varchar("model", { length: 255 }).notNull(), // Modelo do equipamento
-  serialNumber: varchar("serial_number", { length: 255 }).notNull().unique(), // Número de série do equipamento
-  purchaseDate: timestamp("purchase_date", { withTimezone: true }).notNull(), // Data de aquisição
-  purchaseValue: varchar("purchase_value", { length: 20 }).notNull(), // Valor de aquisição (em formato de string para evitar problemas com decimais)
-  status: varchar("status", { length: 50 }).notNull().default("AVAILABLE"), // Status do equipamento (ex.: Disponível, Em uso, Em manutenção, Inativo)
-  notes: text("notes"), // Observações adicionais
+  id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+  name: varchar("name", { length: 255 }).notNull(),
+  type: varchar("type", { length: 50 }).notNull(),
+  brand: varchar("brand", { length: 255 }).notNull(),
+  model: varchar("model", { length: 255 }).notNull(),
+  serialNumber: varchar("serial_number", { length: 255 }).notNull().unique(),
+  purchaseDate: timestamp("purchase_date", { withTimezone: true }).notNull(),
+  purchaseValue: varchar("purchase_value", { length: 20 }).notNull(),
+  status: varchar("status", { length: 50 }).notNull().default("AVAILABLE"),
+  notes: text("notes"),
   coverUrl: text("cover_url").notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(), // Data de criação
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  companyId: uuid("company_id").references(() => companies.id),
 })

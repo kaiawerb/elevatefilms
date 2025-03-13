@@ -14,18 +14,27 @@ import {
 import { db } from "@/database/drizzle"
 import { Gear } from "@/types"
 import { gears } from "@/database/schema"
-import { desc } from "drizzle-orm"
+import { desc, eq } from "drizzle-orm"
 
 import config from "@/lib/config"
 import Image from "next/image"
 import { capitalizeFirstLetter } from "@/lib/utils"
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
 
 const Page = async () => {
+  const session = await auth()
+
+  if (!session) {
+    redirect("/sign-in") // Redireciona para a página de login
+    return null // Retorna null enquanto redireciona
+  }
+
   const gearList = (await db
     .select()
     .from(gears)
-    .limit(10)
-    .orderBy(desc(gears.createdAt))) as Gear[]
+    .where(eq(gears.companyId, session.user.companyId)) // 🔹 Filtra pelos equipamentos da empresa do usuário
+    .limit(10)) as Gear[]
 
   return (
     <section className="w-full rounded-2xl bg-white p-7">

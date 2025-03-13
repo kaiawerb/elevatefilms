@@ -42,7 +42,7 @@ export const signInWithCredentials = async (
 }
 
 export const signUp = async (params: AuthCredentials) => {
-  const { fullname, email, password } = params
+  const { fullname, email, password, companyId } = params
 
   const ip = (await headers()).get("x-forwarded-for") || "127.0.0.1"
   const { success } = await ratelimit.limit(ip)
@@ -66,6 +66,7 @@ export const signUp = async (params: AuthCredentials) => {
       fullname,
       email,
       password: hashedPassword,
+      companyId,
     })
 
     await workflowClient.trigger({

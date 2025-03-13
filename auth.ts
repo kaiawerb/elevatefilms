@@ -36,6 +36,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: user[0].email,
           name: user[0].fullname,
           image: user[0].image,
+          companyId: user[0].companyId,
         } as User
       },
     }),
@@ -48,16 +49,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.id = user.id
         token.name = user.name
+        token.companyId = user.companyId // Passando o companyId no token
+        token.image = user.image
       }
-
       return token
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string
         session.user.name = token.name as string
+        session.user.companyId = token.companyId as string
+        session.user.image = token.image as string
       }
-
       return session
     },
   },

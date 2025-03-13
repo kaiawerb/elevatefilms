@@ -14,7 +14,7 @@ import config from "@/lib/config"
 
 const Sidebar = ({ session }: { session: Session }) => {
   const pathName = usePathname()
-
+  console.log(session.user)
   return (
     <div className="admin-sidebar">
       <div>

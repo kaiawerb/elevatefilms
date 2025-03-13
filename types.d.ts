@@ -1,21 +1,11 @@
 import { string } from "zod"
+import NextAuth from "next-auth"
 
 interface AuthCredentials {
   fullname: string
   email: string
   password: string
-}
-
-interface User {
-  id: string
-  image: string
-  fullname: string
-  email: string
-  status: string
   companyId: string
-  createdAt: Date | null
-  role: string
-  phone: string
 }
 
 interface Book {
@@ -55,7 +45,7 @@ interface Gear {
   type: string
   brand: string
   model: string
-  serialNumber: stringo
+  serialNumber: string
   purchaseDate: Date | null
   purchaseValue: string
   status: string
@@ -84,6 +74,7 @@ interface Company {
   address: string
   phone: string
   email?: string
+  companyId: string
   createdAt?: Date | null
 }
 
@@ -93,4 +84,37 @@ interface CompanyParams {
   address: string
   phone: string
   email: string
+}
+
+interface UserParams {
+  password: string
+  fullname: string
+  email: string
+  age: number
+  companyId: string
+  role: "USER" | "ADMIN"
+  phone: string
+  cpf: string
+  genre: string
+}
+
+declare module "next-auth" {
+  interface User {
+    id: string
+    fullname: string
+    email: string
+    companyId: string
+    image: string
+  }
+
+  interface Session {
+    user: User
+  }
+
+  interface JWT {
+    id: string
+    fullname: string
+    email: string
+    companyId: string
+  }
 }

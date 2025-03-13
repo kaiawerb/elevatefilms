@@ -10,12 +10,6 @@ import { desc } from "drizzle-orm"
 const Home = async () => {
   const session = await auth()
 
-  const lastestBooks = (await db
-    .select()
-    .from(books)
-    .limit(10)
-    .orderBy(desc(books.createdAt))) as Book[]
-
   return (
     <>
       <h1 className="text-white font-bold text-3xl">Coming Soon</h1>

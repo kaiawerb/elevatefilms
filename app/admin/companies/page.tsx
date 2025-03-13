@@ -14,13 +14,22 @@ import { auth } from "@/auth"
 import { db } from "@/database/drizzle"
 import { Company } from "@/types"
 import { companies } from "@/database/schema"
-import { desc } from "drizzle-orm"
+import { desc, eq } from "drizzle-orm"
+import { redirect } from "next/navigation"
 
 const Page = async () => {
+  const session = await auth()
+
+  if (!session) {
+    redirect("/sign-in") // Redireciona para a página de login
+    return null // Retorna null enquanto redireciona
+  }
+
   const companiesList = (await db
     .select()
     .from(companies)
     .limit(10)
+    .where(eq(companies.id, session.user.companyId))
     .orderBy(desc(companies.createdAt))) as Company[]
 
   return (

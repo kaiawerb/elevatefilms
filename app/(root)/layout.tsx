@@ -2,9 +2,8 @@ import { auth } from "@/auth"
 import Header from "@/components/Header"
 import { db } from "@/database/drizzle"
 import { users } from "@/database/schema"
-import { eq } from "drizzle-orm"
+import { eq, and } from "drizzle-orm"
 import { redirect } from "next/navigation"
-import { after } from "next/server"
 import { ReactNode } from "react"
 
 const Layout = async ({ children }: { children: ReactNode }) => {
@@ -12,23 +11,30 @@ const Layout = async ({ children }: { children: ReactNode }) => {
 
   if (!session) redirect("/sign-in")
 
-  after(async () => {
-    if (!session?.user?.id) return
-
-    const user = await db
+  if (session?.user?.id && session?.user?.companyId) {
+    const [user] = await db
       .select()
       .from(users)
-      .where(eq(users.id, session?.user?.id))
+      .where(
+        and(
+          eq(users.id, session.user.id),
+          eq(users.companyId, session.user.companyId)
+        ) // 🔹 Filtra pelo companyId
+      )
       .limit(1)
 
-    if (user[0].lastActivityDate === new Date().toISOString().slice(0, 10))
-      return
+    if (!user) {
+      redirect("/sign-in") // 🔹 Redireciona se o usuário não pertencer à empresa
+    }
 
-    await db
-      .update(users)
-      .set({ lastActivityDate: new Date().toISOString().slice(0, 10) })
-      .where(eq(users.id, session?.user.id))
-  })
+    const today = new Date().toISOString().split("T")[0] // 🔹 Evita erro de fuso horário
+    if (user?.lastActivityDate !== today) {
+      await db
+        .update(users)
+        .set({ lastActivityDate: today })
+        .where(eq(users.id, session.user.id))
+    }
+  }
 
   return (
     <main className="root-container">

@@ -30,12 +30,14 @@ export const FIELD_NAMES = {
   fullname: "Full name",
   email: "Email",
   password: "Password",
+  companyId: "Company ID",
 }
 
 export const FIELD_TYPES = {
   fullname: "text",
   email: "email",
   password: "password",
+  companyId: "companyId",
 }
 
 export const sorts = [

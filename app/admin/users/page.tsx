@@ -12,28 +12,38 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { db } from "@/database/drizzle"
-import { User } from "@/types"
-import { companies, users } from "@/database/schema"
+import { users } from "@/database/schema"
 import { desc, eq } from "drizzle-orm"
 import { capitalizeFirstLetter, getInitials } from "@/lib/utils"
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar"
 import { IKImage } from "imagekitio-next"
 import config from "@/lib/config"
 import Image from "next/image"
+import { User } from "next-auth"
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
 
 const Page = async () => {
-  const userList = (await db
+  const session = await auth()
+
+  if (!session) {
+    redirect("/sign-in") // Redireciona para a página de login
+    return null // Retorna null enquanto redireciona
+  }
+
+  const userList = await db
     .select()
     .from(users)
     .limit(10)
-    .orderBy(desc(users.createdAt))) as User[]
+    .where(eq(users.companyId, session.user.companyId))
+    .orderBy(desc(users.createdAt))
 
   return (
     <section className="w-full rounded-2xl bg-white p-7">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold">All Gears</h2>
+        <h2 className="text-xl font-semibold">All Users</h2>
         <Button className="bg-primary-admin" asChild>
-          <Link href="/admin/gears/new" className="text-white">
+          <Link href="/admin/users/new" className="text-white">
             + New User
           </Link>
         </Button>
@@ -52,7 +62,7 @@ const Page = async () => {
           </TableHeader>
           <TableBody>
             {userList.map((user) => (
-              <TableRow className="text-sm font-semibold  mt-5" key={user.id}>
+              <TableRow className="text-sm font-semibold mt-5" key={user.id}>
                 <TableCell className="font-medium">
                   <div className="flex flex-row gap-2 items-center">
                     <Avatar>

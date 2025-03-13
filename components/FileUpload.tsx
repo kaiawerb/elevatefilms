@@ -70,8 +70,6 @@ const FileUpload = ({
   }
 
   const onError = (error: any) => {
-    console.log(error)
-
     toast({
       title: `${type} upload failed`,
       description: `Your ${type} could not be uploaded. Please try again.`,

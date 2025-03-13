@@ -4,11 +4,25 @@ export const signUpSchema = z.object({
   fullname: z.string().min(4),
   email: z.string().email(),
   password: z.string().min(8),
+  companyId: z.string(),
 })
 
 export const signInSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
+})
+
+export const userSchema = z.object({
+  fullname: z.string().min(2).max(100),
+  password: z.string().min(8),
+  email: z.string().email("E-mail inválido."),
+  age: z.number(),
+  companyId: z.string(),
+  genre: z.string(),
+  address: z.string(),
+  cpf: z.string(),
+  role: z.enum(["USER", "ADMIN"]),
+  phone: z.string(),
 })
 
 export const bookSchema = z.object({
