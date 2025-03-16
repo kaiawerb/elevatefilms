@@ -98,6 +98,11 @@ interface UserParams {
   genre: string
 }
 
+interface Column {
+  id: string | number
+  title: string
+}
+
 declare module "next-auth" {
   interface User {
     id: string
