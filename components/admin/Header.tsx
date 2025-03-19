@@ -1,6 +1,9 @@
 import { Session } from "next-auth"
 import React from "react"
 import { Input } from "../ui/input"
+import { Button } from "../ui/button"
+import { signOut } from "next-auth/react"
+import { LogOutIcon } from "lucide-react"
 
 const Header = ({ session }: { session: Session }) => {
   return (
@@ -14,6 +17,13 @@ const Header = ({ session }: { session: Session }) => {
           Monitor all of your users and gears here
         </p>
       </div>
+      {/* <Button
+        className="rounded-full"
+        variant="ghost"
+        onClick={() => signOut()}
+      >
+        <LogOutIcon className="text-red-600" />
+      </Button> */}
     </header>
   )
 }
