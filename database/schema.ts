@@ -10,7 +10,13 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core"
 
-export const ROLE_ENUM = pgEnum("role", ["USER", "ADMIN"])
+export const ROLE_ENUM = pgEnum("role", [
+  "ADMIN", // Acesso total ao sistema, gerencia tudo
+  "CLIENT", // Usuário final, comprador ou locatário
+  "OWNER", // Proprietário de imóvel
+  "BROKER", // Corretor
+  "EMPLOYEE", // Funcionário interno ou suporte (opcional)
+])
 
 export const users = pgTable("users", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
@@ -20,16 +26,31 @@ export const users = pgTable("users", {
   genre: varchar("genre", { length: 50 }),
   email: text("email").notNull().unique(),
   password: text("password").notNull(),
-  role: ROLE_ENUM("role").default("USER"),
+  role: ROLE_ENUM("role").default("CLIENT"),
   lastActivityDate: date("last_activity_date").defaultNow(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   cpf: varchar("cpf", { length: 14 }).unique(),
+  rg: varchar("rg", { length: 20 }),
+  civilStatus: varchar("civil_status", { length: 50 }),
+  profession: varchar("profession", { length: 100 }),
   phone: varchar("phone", { length: 15 }),
-  address: text("address"),
+
+  // Endereço estruturado
+  street: varchar("street", { length: 255 }),
+  number: varchar("number", { length: 20 }),
+  complement: varchar("complement", { length: 100 }),
+  neighborhood: varchar("neighborhood", { length: 100 }),
+  zipCode: varchar("zip_code", { length: 20 }),
+  city: varchar("city", { length: 100 }),
+  state: varchar("state", { length: 50 }),
+
   companyId: uuid("company_id").references(() => companies.id, {
     onDelete: "cascade",
   }),
   notes: text("notes"),
+  documentPhoto: text("document_photo_url"),
+  creci: varchar("creci", { length: 20 }),
+  language: varchar("language", { length: 5 }).default("pt-BR"),
 })
 
 export const companies = pgTable("companies", {
