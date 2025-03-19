@@ -15,9 +15,7 @@ const Page = () => {
         </Button>
       </div>
 
-      <div className="mt-7 w-full overflow-hidden">
-        <KanbanBoard />
-      </div>
+      <div className="mt-7 w-full overflow-hidden"></div>
     </section>
   )
 }

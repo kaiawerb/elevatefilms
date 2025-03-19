@@ -2,10 +2,11 @@
 
 import React, { useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Column } from "@/types"
+import { Column, Task } from "@/types"
 import {
   DndContext,
   DragEndEvent,
+  DragOverEvent,
   DragOverlay,
   DragStartEvent,
   PointerSensor,
@@ -15,12 +16,16 @@ import {
 import { arrayMove, SortableContext } from "@dnd-kit/sortable"
 import KanbanColumnContainer from "./KanbanColumnContainer"
 import { createPortal } from "react-dom"
+import KanbanTaskCard from "./KanbanTaskCard"
 
 const KanbanBoard = () => {
   const [columns, setColumns] = useState<Column[]>([])
   const columnsId = useMemo(() => columns.map((column) => column.id), [columns])
 
+  const [tasks, setTasks] = useState<Task[]>([])
+
   const [activeColumn, setActiveColumn] = useState<Column | null>(null)
+  const [activeTask, setActiveTask] = useState<Task | null>(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -30,23 +35,14 @@ const KanbanBoard = () => {
     })
   )
   return (
-    <main>
+    <main className="shadow-xl">
       <DndContext
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
+        onDragOver={onDragOver}
         sensors={sensors}
       >
-        <Button
-          className="max-w-44"
-          variant="outline"
-          onClick={() => {
-            createNewColumn()
-          }}
-        >
-          + Add Column
-        </Button>
-
-        <div className="flex gap-4 mt-10">
+        <div className="flex gap-4 items-start">
           <SortableContext items={columnsId}>
             {columns.map((column) => (
               <KanbanColumnContainer
@@ -54,17 +50,44 @@ const KanbanBoard = () => {
                 key={column.id}
                 deleteColumn={deleteColumn}
                 updateColumn={updateColumn}
+                createTask={createTask}
+                updateTask={updateTask}
+                deleteTask={deleteTask}
+                tasks={tasks.filter((task) => task.columnId === column.id)}
               />
             ))}
           </SortableContext>
+          <Button
+            className="max-w-44"
+            variant="outline"
+            onClick={() => {
+              createNewColumn()
+            }}
+          >
+            + Add Column
+          </Button>
         </div>
 
         {createPortal(
           <DragOverlay>
             {activeColumn && (
               <KanbanColumnContainer
+                updateColumn={updateColumn}
                 deleteColumn={deleteColumn}
                 column={activeColumn}
+                createTask={createTask}
+                deleteTask={deleteTask}
+                updateTask={updateTask}
+                tasks={tasks.filter(
+                  (task) => task.columnId === activeColumn.id
+                )}
+              />
+            )}
+            {activeTask && (
+              <KanbanTaskCard
+                task={activeTask}
+                deleteTask={deleteTask}
+                updateTask={updateTask}
               />
             )}
           </DragOverlay>,
@@ -83,9 +106,52 @@ const KanbanBoard = () => {
     setColumns([...columns, columnToAdd])
   }
 
+  function createTask(columnId: Column["id"]) {
+    const newTask: Task = {
+      id: generateId(),
+      columnId,
+      content: `Task ${tasks.length + 1}`,
+    }
+
+    setTasks([...tasks, newTask])
+  }
+
+  function deleteTask(id: Column["id"]) {
+    const newTasks = tasks.filter((task) => task.id !== id)
+
+    setTasks(newTasks)
+  }
+
+  function updateTask(id: Column["id"], content: string) {
+    const newTasks = tasks.map((task) => {
+      if (task.id !== id) return task
+
+      return { ...task, content }
+    })
+
+    setTasks(newTasks)
+  }
+
   function deleteColumn(id: Column["id"]) {
     const filteredColumns = columns.filter((column) => column.id !== id)
     setColumns(filteredColumns)
+
+    const newTasks = tasks.filter((t) => t.columnId !== id)
+    setTasks(newTasks)
+  }
+
+  function updateColumn(id: Column["id"], title: string) {
+    const newColumns = columns.map((column) => {
+      if (column.id !== id) return column
+
+      return { ...column, title }
+    })
+
+    setColumns(newColumns)
+  }
+
+  function generateId() {
+    return Math.floor(Math.random() * 1001)
   }
 
   function onDragStart(event: DragStartEvent) {
@@ -93,9 +159,17 @@ const KanbanBoard = () => {
       setActiveColumn(event.active.data.current.column)
       return
     }
+
+    if (event.active.data.current?.type === "Task") {
+      setActiveTask(event.active.data.current.task)
+      return
+    }
   }
 
   function onDragEnd(event: DragEndEvent) {
+    setActiveColumn(null)
+    setActiveTask(null)
+
     const { active, over } = event
 
     if (!over) return
@@ -118,18 +192,45 @@ const KanbanBoard = () => {
     })
   }
 
-  function updateColumn(id: Column["id"], title: string) {
-    const newColumns = columns.map((column) => {
-      if (column.id !== id) return column
+  function onDragOver(event: DragOverEvent) {
+    const { active, over } = event
 
-      return { ...column, title }
+    if (!over) return
 
-      setColumns(newColumns)
-    })
-  }
+    const activeId = active.id
+    const overId = over.id
 
-  function generateId() {
-    return Math.floor(Math.random() * 1001)
+    if (activeId === overId) return
+
+    const isActiveATask = active.data.current?.type === "Task"
+    const isOverATask = over.data.current?.type === "Task"
+
+    if (!isActiveATask) return
+
+    // Dropping Task over another task
+    if (isActiveATask && isOverATask) {
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex((t) => t.id === activeId)
+        const overIndex = tasks.findIndex((t) => t.id === overId)
+
+        tasks[activeIndex].columnId = tasks[overIndex].columnId
+
+        return arrayMove(tasks, activeIndex, overIndex)
+      })
+    }
+
+    // Dropping Task over a column
+    const isOverAColumn = over.data.current?.type === "Column"
+
+    if (isActiveATask && isOverAColumn) {
+      setTasks((tasks) => {
+        const activeIndex = tasks.findIndex((t) => t.id === activeId)
+
+        tasks[activeIndex].columnId = overId
+
+        return arrayMove(tasks, activeIndex, activeIndex)
+      })
+    }
   }
 }
 

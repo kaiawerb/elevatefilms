@@ -103,6 +103,12 @@ interface Column {
   title: string
 }
 
+interface Task {
+  id: id
+  columnId: id
+  content: string
+}
+
 declare module "next-auth" {
   interface User {
     id: string
