@@ -35,7 +35,7 @@ const BoardView = () => {
     })
   )
   return (
-    <main className="shadow-xl">
+    <main className="shadow-xl overflow-x-scroll overflow-y-auto h-[300px]">
       <DndContext
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}

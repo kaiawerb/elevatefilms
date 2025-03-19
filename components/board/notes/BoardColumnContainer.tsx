@@ -58,7 +58,7 @@ function KanbanColumnContainer(props: Props) {
       <div
         ref={setNodeRef}
         style={styles}
-        className="flex flex-col bg-zinc-200 w-[276px] opacity-70 max-h-[456px] text-white rounded-sm "
+        className="flex flex-col bg-zinc-200 w-[276px] min-w-[276px] opacity-70 max-h-[456px] text-white rounded-sm "
       ></div>
     )
   }
@@ -67,7 +67,7 @@ function KanbanColumnContainer(props: Props) {
     <div
       ref={setNodeRef}
       style={styles}
-      className="flex flex-col p-4 shadow-xl rounded-md bg-zinc-200 w-[276px] max-h-[476px]"
+      className="flex flex-col p-4 shadow-xl rounded-md bg-zinc-200 w-[276px min-w-[276px] max-h-[476px]"
     >
       <div
         className="flex cursor-grab items-center justify-between"

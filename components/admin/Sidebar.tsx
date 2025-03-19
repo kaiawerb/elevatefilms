@@ -11,11 +11,13 @@ import { LogOutIcon, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "../ui/button"
 import { signOut } from "next-auth/react"
 import { useState } from "react"
+import config from "@/lib/config"
 
 const Sidebar = ({ session }: { session: Session }) => {
   const pathName = usePathname()
   const [collapsed, setCollapsed] = useState(false)
 
+  console.log(session.user)
   return (
     <div
       className={cn(
@@ -92,7 +94,13 @@ const Sidebar = ({ session }: { session: Session }) => {
       >
         <Avatar>
           <AvatarFallback className="bg-gray-200">
-            {getInitials(session?.user?.name || "JD")}
+            <Image
+              src={`${config.env.imagekit.urlEndpoint}${session.user.image}`}
+              alt={`Profile Image ${session.user.fullname}`}
+              width={40}
+              height={40}
+              className="object-cover rounded-full"
+            />
           </AvatarFallback>
         </Avatar>
         {!collapsed && (
@@ -102,6 +110,13 @@ const Sidebar = ({ session }: { session: Session }) => {
           </div>
         )}
       </div>
+      <Button
+        className="rounded-full"
+        variant="ghost"
+        onClick={() => signOut()}
+      >
+        <LogOutIcon className="text-red-600" />
+      </Button>
     </div>
   )
 }

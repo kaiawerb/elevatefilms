@@ -116,7 +116,7 @@ const AuthForm = <T extends FieldValues>({
         </form>
       </Form>
 
-      <p className="text-center text-base font-medium">
+      {/* <p className="text-center text-base font-medium">
         {isSignIn ? "New to Syncwise? " : "Already have an account? "}
 
         <Link
@@ -125,7 +125,7 @@ const AuthForm = <T extends FieldValues>({
         >
           {isSignIn ? "Create an account" : "Sign in"}
         </Link>
-      </p>
+      </p> */}
     </div>
   )
 }

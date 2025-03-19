@@ -32,7 +32,7 @@ const Page = async () => {
   }
 
   return (
-    <section className="w-full rounded-2xl bg-white p-7">
+    <section className="rounded-2xl bg-white p-7 max-w-screen">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-xl font-semibold">All Gears</h2>
         <Button className="bg-primary-admin" asChild>
