@@ -1,8 +1,6 @@
 import { Column, Task } from "@/types"
-import { Button } from "./ui/button"
 import { Pencil, Trash } from "lucide-react"
 import { useState } from "react"
-import { Textarea } from "./ui/textarea"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import {
@@ -13,6 +11,8 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Textarea } from "@/components/ui/textarea"
 
 interface Props {
   task: Task
@@ -20,7 +20,7 @@ interface Props {
   updateTask: (id: Column["id"], content: string) => void
 }
 
-const KanbanTaskCard = ({ task, deleteTask, updateTask }: Props) => {
+const BoardTaskCard = ({ task, deleteTask, updateTask }: Props) => {
   const [mouseIsOver, setMouseIsOver] = useState(false)
   const [modalOpen, setModalOpen] = useState(false)
   const [editedContent, setEditedContent] = useState(task.content)
@@ -116,4 +116,4 @@ const KanbanTaskCard = ({ task, deleteTask, updateTask }: Props) => {
   )
 }
 
-export default KanbanTaskCard
+export default BoardTaskCard

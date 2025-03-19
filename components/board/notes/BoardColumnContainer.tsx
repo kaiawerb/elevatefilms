@@ -1,10 +1,10 @@
 import { Column, Task } from "@/types"
 import React, { useMemo, useState } from "react"
-import { Button } from "./ui/button"
 import { Ellipsis, PlusIcon } from "lucide-react"
 import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import KanbanTaskCard from "./KanbanTaskCard"
+import KanbanTaskCard from "./BoardTaskCard"
+import { Button } from "@/components/ui/button"
 interface Props {
   column: Column
   deleteColumn: (id: Column["id"]) => void

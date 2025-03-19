@@ -21,7 +21,7 @@ import Image from "next/image"
 import { capitalizeFirstLetter } from "@/lib/utils"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
-import KanbanBoard from "@/components/KanbanBoard"
+import BoardView from "@/components/board/notes/BoardView"
 
 const Page = async () => {
   const session = await auth()
@@ -43,7 +43,7 @@ const Page = async () => {
       </div>
 
       <div className="mt-7 w-full overflow-hidden">
-        <KanbanBoard />
+        <BoardView />
       </div>
     </section>
   )

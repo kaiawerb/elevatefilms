@@ -14,11 +14,11 @@ import {
   useSensors,
 } from "@dnd-kit/core"
 import { arrayMove, SortableContext } from "@dnd-kit/sortable"
-import KanbanColumnContainer from "./KanbanColumnContainer"
+import BoardColumnContainer from "./BoardColumnContainer"
 import { createPortal } from "react-dom"
-import KanbanTaskCard from "./KanbanTaskCard"
+import BoardTaskCard from "./BoardTaskCard"
 
-const KanbanBoard = () => {
+const BoardView = () => {
   const [columns, setColumns] = useState<Column[]>([])
   const columnsId = useMemo(() => columns.map((column) => column.id), [columns])
 
@@ -45,7 +45,7 @@ const KanbanBoard = () => {
         <div className="flex gap-4 items-start">
           <SortableContext items={columnsId}>
             {columns.map((column) => (
-              <KanbanColumnContainer
+              <BoardColumnContainer
                 column={column}
                 key={column.id}
                 deleteColumn={deleteColumn}
@@ -71,7 +71,7 @@ const KanbanBoard = () => {
         {createPortal(
           <DragOverlay>
             {activeColumn && (
-              <KanbanColumnContainer
+              <BoardColumnContainer
                 updateColumn={updateColumn}
                 deleteColumn={deleteColumn}
                 column={activeColumn}
@@ -84,7 +84,7 @@ const KanbanBoard = () => {
               />
             )}
             {activeTask && (
-              <KanbanTaskCard
+              <BoardTaskCard
                 task={activeTask}
                 deleteTask={deleteTask}
                 updateTask={updateTask}
@@ -234,4 +234,4 @@ const KanbanBoard = () => {
   }
 }
 
-export default KanbanBoard
+export default BoardView
