@@ -86,16 +86,31 @@ interface CompanyParams {
   email: string
 }
 
-interface UserParams {
-  password: string
+export interface UserParams {
   fullname: string
   email: string
+  password: string
+
   age: number
-  companyId: string
-  role: "USER" | "ADMIN"
-  phone: string
-  cpf: string
   genre: string
+
+  civilStatus: string
+  profession: string
+  phone: string
+
+  cpf: string
+  rg: string
+  documentPhoto?: string
+  creci?: string
+
+  street?: string
+  city: string
+  neighborhood?: string
+  state?: string
+  zipCode?: string
+  complement?: string
+
+  notes?: string
 }
 
 interface Column {

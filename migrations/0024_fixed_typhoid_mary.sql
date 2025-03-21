@@ -1,0 +1,35 @@
+CREATE TYPE "public"."role" AS ENUM('ADMIN', 'CLIENT', 'OWNER', 'BROKER', 'EMPLOYEE');--> statement-breakpoint
+CREATE TABLE "users" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"image" text DEFAULT '/user/profileImage/profileUrlPlaceHolder.png',
+	"full_name" varchar(255) NOT NULL,
+	"age" integer,
+	"genre" varchar(50),
+	"email" text NOT NULL,
+	"password" text NOT NULL,
+	"role" "role" DEFAULT 'CLIENT',
+	"last_activity_date" date DEFAULT now(),
+	"created_at" timestamp with time zone DEFAULT now(),
+	"cpf" varchar(14),
+	"rg" varchar(20),
+	"civil_status" varchar(50),
+	"profession" varchar(100),
+	"phone" varchar(15),
+	"street" varchar(255),
+	"number" varchar(20),
+	"complement" varchar(100),
+	"neighborhood" varchar(100),
+	"zip_code" varchar(20),
+	"city" varchar(100),
+	"state" varchar(50),
+	"company_id" uuid,
+	"notes" text,
+	"document_photo_url" text,
+	"creci" varchar(20),
+	"language" varchar(5) DEFAULT 'pt-BR',
+	CONSTRAINT "users_id_unique" UNIQUE("id"),
+	CONSTRAINT "users_email_unique" UNIQUE("email"),
+	CONSTRAINT "users_cpf_unique" UNIQUE("cpf")
+);
+--> statement-breakpoint
+ALTER TABLE "users" ADD CONSTRAINT "users_company_id_companies_id_fk" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE cascade ON UPDATE no action;

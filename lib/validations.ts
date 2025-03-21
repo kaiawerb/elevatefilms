@@ -13,16 +13,30 @@ export const signInSchema = z.object({
 })
 
 export const userSchema = z.object({
-  fullname: z.string().min(2).max(100),
-  password: z.string().min(8),
+  fullname: z.string().min(2, "Informe um nome completo").max(255),
   email: z.string().email("E-mail inválido."),
-  age: z.number(),
-  companyId: z.string(),
-  genre: z.string(),
-  address: z.string(),
+  password: z.string().optional(),
+
+  age: z.number().min(1),
+  genre: z.string().min(1, "Informe um genero"),
+
+  civilStatus: z.string().min(5, "Informe um estado civil"),
+  profession: z.string().min(1, "Informe uma profissão"),
+  phone: z.string().min(8, "Informe um telefone"),
+
   cpf: z.string(),
-  role: z.enum(["USER", "ADMIN"]),
-  phone: z.string(),
+  rg: z.string(),
+  documentPhoto: z.string(),
+  creci: z.string(),
+
+  street: z.string(),
+  city: z.string(),
+  neighborhood: z.string(),
+  state: z.string(),
+  zipCode: z.string(),
+  complement: z.string(),
+
+  notes: z.string(),
 })
 
 export const bookSchema = z.object({

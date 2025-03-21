@@ -79,7 +79,7 @@ const BookForm = ({ type, ...book }: Props) => {
               </FormLabel>
               <FormControl>
                 <Input
-                  className="book-form_input"
+                className="book-form_input"
                   placeholder="Book Title"
                   required
                   {...field}

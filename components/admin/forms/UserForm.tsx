@@ -51,8 +51,29 @@ const UserForm = ({ type, ...user }: Props) => {
   const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
     defaultValues: {
-      companyId: "",
+      fullname: "",
+      email: "",
+
+      genre: "",
       age: 0,
+
+      civilStatus: "",
+      profession: "",
+      phone: "",
+
+      cpf: "",
+      rg: "",
+      documentPhoto: "",
+      creci: "",
+
+      street: "",
+      city: "",
+      neighborhood: "",
+      state: "",
+      zipCode: "",
+      complement: "",
+
+      notes: "",
     },
   })
 
@@ -89,179 +110,454 @@ const UserForm = ({ type, ...user }: Props) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name={"fullname"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Full Name
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="book-form_input"
-                  placeholder="Full Name"
-                  required
-                  {...field}
-                />
-              </FormControl>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-wrap gap-4"
+      >
+        <div className="w-full">
+          <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
+            Dados pessoais
+          </h1>
+          <hr className="mb-4 " />
+        </div>
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"email"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
-              <FormLabel className="text-base font-normal text-dark-500">
-                E-mail
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="book-form_input"
-                  placeholder="E-mail"
-                  required
-                  {...field}
-                />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"cpf"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
-              <FormLabel className="text-base font-normal text-dark-500">
-                CPF
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="book-form_input"
-                  placeholder="CPF"
-                  required
-                  {...field}
-                />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"phone"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Phone
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="book-form_input"
-                  placeholder="Phone"
-                  required
-                  {...field}
-                />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"phone"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Address
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="book-form_input"
-                  placeholder="Address"
-                  required
-                  {...field}
-                />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"age"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Age
-              </FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  className="book-form_input"
-                  placeholder="Age"
-                  required
-                  {...field}
-                />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"genre"}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-base font-normal text-dark-500">
-                Type
-              </FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl className="book-form_input">
-                  <SelectTrigger>
-                    <SelectValue
-                      className="text-base font-normal text-dark-500"
-                      placeholder="Select a type to display"
-                    />
-                  </SelectTrigger>
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="fullname"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Nome Completo
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Nome completo"
+                    {...field}
+                  />
                 </FormControl>
-                <SelectContent>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"Man"}
-                  >
-                    Man
-                  </SelectItem>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"Woman"}
-                  >
-                    Woman
-                  </SelectItem>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"Undefined"}
-                  >
-                    Undefined
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="age"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Idade
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    type="number"
+                    placeholder="Idade"
+                    value={field.value ?? ""}
+                    onChange={(e) => field.onChange(Number(e.target.value))}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="genre"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Gênero
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value ?? ""}
+                >
+                  <FormControl>
+                    <SelectTrigger className="book-form_input">
+                      <SelectValue placeholder="Selecione o gênero" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="Masculino">Masculino</SelectItem>
+                    <SelectItem value="Feminino">Feminino</SelectItem>
+                    <SelectItem value="Outro">Outro</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="civilStatus"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Estado Civil
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Estado Civil"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="profession"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Profissão
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Profissão"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-full">
+          <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
+            Documentos
+          </h1>
+          <hr className="mb-4 " />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="cpf"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  CPF
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="CPF"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="rg"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  RG
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="RG"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="documentPhoto"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Foto Documento
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Foto Documento"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="creci"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  CRECI
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="CRECI"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-full">
+          <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
+            Contato
+          </h1>
+          <hr className="mb-4 " />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  E-mail
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="johndoe@example.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Telefone
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Telefone"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-full">
+          <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
+            Endereço
+          </h1>
+          <hr className="mb-4 " />
+        </div>
+
+        <div className="w-full">
+          <FormField
+            control={form.control}
+            name="street"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Endereço
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Endereço"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="city"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Cidade
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Cidade"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="neighborhood"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Bairro
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Bairro"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="state"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Estado
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Estado"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="zipCode"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  CEP
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="CEP"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name="complement"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Complemento
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Complemento"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-full">
+          <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
+            Outros
+          </h1>
+          <hr className="mb-4 " />
+        </div>
+
+        <div className="w-full">
+          <FormField
+            control={form.control}
+            name="notes"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Notas
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="book-form_input"
+                    placeholder="Notas"
+                    rows={5}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <Button className="book-form_btn text-white" type="submit">
-          Add Book to Library
+          Add User
         </Button>
       </form>
     </Form>

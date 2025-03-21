@@ -17,7 +17,6 @@ const Sidebar = ({ session }: { session: Session }) => {
   const pathName = usePathname()
   const [collapsed, setCollapsed] = useState(false)
 
-  console.log(session.user)
   return (
     <div
       className={cn(
