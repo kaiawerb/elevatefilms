@@ -50,7 +50,7 @@ interface Gear {
   purchaseValue: string
   status: string
   notes?: string
-  coverUrl: string
+  coverUrl?: string
   createdAt?: Date | null
 }
 

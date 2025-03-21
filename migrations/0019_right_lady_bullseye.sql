@@ -1,5 +1,0 @@
-ALTER TABLE "users" ALTER COLUMN "role" SET DEFAULT 'CLIENT';--> statement-breakpoint
-ALTER TABLE "public"."users" ALTER COLUMN "role" SET DATA TYPE text;--> statement-breakpoint
-DROP TYPE "public"."role";--> statement-breakpoint
-CREATE TYPE "public"."role" AS ENUM('ADMIN', 'CLIENT', 'OWNER', 'BROKER', 'EMPLOYEE');--> statement-breakpoint
-ALTER TABLE "public"."users" ALTER COLUMN "role" SET DATA TYPE "public"."role" USING "role"::"public"."role";

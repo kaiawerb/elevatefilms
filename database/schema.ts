@@ -36,7 +36,6 @@ export const users = pgTable("users", {
   documentPhoto: text("document_photo_url"),
   creci: varchar("creci", { length: 20 }),
 
-  // Endereço estruturado
   street: varchar("street", { length: 255 }),
   complement: varchar("complement", { length: 100 }),
   neighborhood: varchar("neighborhood", { length: 100 }),
@@ -58,11 +57,26 @@ export const users = pgTable("users", {
 
 export const companies = pgTable("companies", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
-  name: varchar("name", { length: 255 }).notNull(), // Nome da empresa
-  cnpj: varchar("cnpj", { length: 18 }).unique(), // CNPJ com máscara (ex.: 00.000.000/0000-00)
-  address: text("address"), // Endereço da empresa
-  phone: varchar("phone", { length: 15 }), // Telefone da empresa
-  email: text("email").unique(), // E-mail da empresa
+
+  name: varchar("name", { length: 255 }).notNull(),
+  email: text("email").unique(),
+
+  cnpj: varchar("cnpj", { length: 18 }).unique(),
+
+  address: text("address"),
+
+  phone: varchar("phone", { length: 15 }),
+
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  image: text("image").default("/user/profileImage/profileUrlPlaceHolder.png"),
+})
+
+export const companyResponsibles = pgTable("company_responsibles", {
+  id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+  companyId: uuid("company_id").references(() => companies.id, {
+    onDelete: "cascade",
+  }),
+  userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 })
 

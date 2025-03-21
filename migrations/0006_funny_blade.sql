@@ -1,1 +1,0 @@
-DROP TABLE "gear_equipments" CASCADE;

@@ -1,1 +1,0 @@
-ALTER TABLE "users" ADD COLUMN "profile_url" text DEFAULT '/user/profileImage/profileUrlPlaceHolder.png';
