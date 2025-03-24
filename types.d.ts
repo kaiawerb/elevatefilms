@@ -56,13 +56,16 @@ interface Gear {
 
 interface GearParams {
   name: string
-  type: "DRONE" | "CAMERA" | "LENS" | "ACCESSORY"
   brand: string
   model: string
-  serialNumber: string
+
+  type: "DRONE" | "CAMERA" | "LENS" | "ACCESSORY"
+  status: "AVAILABLE" | "IN_USE" | "UNDER_MAINTENANCE" | "INACTIVE"
+
   purchaseDate: Date
   purchaseValue: string
-  status: "AVAILABLE" | "IN_USE" | "UNDER_MAINTENANCE" | "INACTIVE"
+  serialNumber: string
+
   coverUrl: string
   notes?: string
 }
@@ -86,7 +89,7 @@ interface CompanyParams {
   email: string
 }
 
-export interface UserParams {
+interface UserParams {
   fullname: string
   email: string
   password: string

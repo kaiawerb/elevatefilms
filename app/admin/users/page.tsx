@@ -41,10 +41,10 @@ const Page = async () => {
   return (
     <section className="w-full rounded-2xl bg-white p-7">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold">All Users</h2>
+        <h2 className="text-xl font-semibold">Usuários</h2>
         <Button className="bg-primary-admin" asChild>
           <Link href="/admin/users/new" className="text-white">
-            + New User
+            + Novo Usuário
           </Link>
         </Button>
       </div>
@@ -53,10 +53,11 @@ const Page = async () => {
         <Table>
           <TableHeader>
             <TableRow className="text-sm font-bold">
-              <TableHead>Name</TableHead>
-              <TableHead>Date Joined</TableHead>
-              <TableHead>Role</TableHead>
+              <TableHead>Nome e E-mail</TableHead>
+              <TableHead>Tipo de usuário</TableHead>
               <TableHead>Phone</TableHead>
+              <TableHead>Cadastrado em</TableHead>
+              <TableHead>Cadastrado em</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -84,10 +85,10 @@ const Page = async () => {
                     </div>
                   </div>
                 </TableCell>
+                <TableCell>{capitalizeFirstLetter(user.role)}</TableCell>
                 <TableCell>
                   {user.createdAt ? user.createdAt.toLocaleDateString() : "N/A"}
                 </TableCell>
-                <TableCell>{capitalizeFirstLetter(user.role)}</TableCell>
                 <TableCell>{user.phone ?? "N/A"}</TableCell>
               </TableRow>
             ))}

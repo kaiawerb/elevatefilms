@@ -60,24 +60,27 @@ export const gearSchema = z.object({
   name: z
     .string()
     .min(2, "O nome do equipamento deve ter pelo menos 2 caracteres."),
+  brand: z.string().min(2, "A marca deve ter pelo menos 2 caracteres."),
+  model: z.string().min(2, "O modelo deve ter pelo menos 2 caracteres."),
+
   type: z.enum(["DRONE", "CAMERA", "LENS", "ACCESSORY"], {
     message: "O tipo deve ser DRONE, CAMERA, LENS ou ACCESSORY.",
   }),
-  brand: z.string().min(2, "A marca deve ter pelo menos 2 caracteres."),
-  model: z.string().min(2, "O modelo deve ter pelo menos 2 caracteres."),
-  serialNumber: z
-    .string()
-    .min(2, "O número de série deve ter pelo menos 2 caracteres."),
-  purchaseDate: z.date(), // Data de aquisição
-  purchaseValue: z.string(),
   status: z
     .enum(["AVAILABLE", "IN_USE", "UNDER_MAINTENANCE", "INACTIVE"], {
       message:
         "O status deve ser AVAILABLE, IN_USE, UNDER_MAINTENANCE ou INACTIVE.",
     })
     .default("AVAILABLE"),
+
+  purchaseDate: z.date(),
+  purchaseValue: z.string(),
+  serialNumber: z
+    .string()
+    .min(2, "O número de série deve ter pelo menos 2 caracteres."),
+
   coverUrl: z.string(),
-  notes: z.string().optional(), // Observações adicionais
+  notes: z.string().optional(),
 })
 
 export const companySchema = z.object({

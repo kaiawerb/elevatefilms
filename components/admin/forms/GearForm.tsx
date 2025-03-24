@@ -40,6 +40,7 @@ import React from "react"
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 import FileUpload from "@/components/FileUpload"
+import { Separator } from "@/components/ui/separator"
 
 interface Props extends Partial<Gear> {
   type?: "create" | "update"
@@ -52,13 +53,13 @@ const GearForm = ({ type, ...gear }: Props) => {
     resolver: zodResolver(gearSchema),
     defaultValues: {
       name: "",
-      type: undefined,
       brand: "",
       model: "",
-      serialNumber: "",
+      type: undefined,
+      status: undefined,
       purchaseDate: new Date(),
       purchaseValue: "",
-      status: undefined,
+      serialNumber: "",
       coverUrl: "",
       notes: "",
     },
@@ -70,7 +71,7 @@ const GearForm = ({ type, ...gear }: Props) => {
     if (result.success) {
       toast({
         title: "Success",
-        description: "Book created successfully",
+        description: "Gear created successfully",
       })
 
       //router.push(`/admins/books/${result.data.id}`)
@@ -85,290 +86,351 @@ const GearForm = ({ type, ...gear }: Props) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name={"name"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Gear Title
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="book-form_input"
-                  placeholder="Gear Title"
-                  required
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"type"}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-base font-normal text-dark-500">
-                Type
-              </FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl className="book-form_input">
-                  <SelectTrigger>
-                    <SelectValue
-                      className="text-base font-normal text-dark-500"
-                      placeholder="Select a type to display"
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"DRONE"}
-                  >
-                    Drone
-                  </SelectItem>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"CAMERA"}
-                  >
-                    Camera
-                  </SelectItem>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"LENS"}
-                  >
-                    Lens
-                  </SelectItem>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"ACCESSORY"}
-                  >
-                    Accessory
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"brand"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Brand
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="book-form_input"
-                  placeholder="Brand"
-                  required
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"model"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Model
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="book-form_input"
-                  placeholder="Model"
-                  required
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"serialNumber"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 ">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Serial Number
-              </FormLabel>
-              <FormControl>
-                <Input
-                  className="book-form_input"
-                  placeholder="Serial Number"
-                  required
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="purchaseDate"
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Purchase Date
-              </FormLabel>
-              <FormControl>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "book-form_input justify-start text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {field.value ? (
-                        format(new Date(field.value), "PPP")
-                      ) : (
-                        <span className="text-base font-normal">
-                          Pick a date
-                        </span>
-                      )}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={field.value ? new Date(field.value) : undefined}
-                      onSelect={(selectedDate) => {
-                        field.onChange(selectedDate) // Atualiza o formulário
-                      }}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"purchaseValue"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Purchase Value
-              </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Purchase Value"
-                  {...field}
-                  className="book-form_input"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"status"}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-base font-normal text-dark-500">
-                Status
-              </FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl className="book-form_input">
-                  <SelectTrigger>
-                    <SelectValue
-                      className="text-base font-normal text-dark-500"
-                      placeholder="Select a status to display"
-                    />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"AVAILABLE"}
-                  >
-                    Available
-                  </SelectItem>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"IN_USE"}
-                  >
-                    In Use
-                  </SelectItem>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"UNDER_MAINTENANCE"}
-                  >
-                    Under Maintenance
-                  </SelectItem>
-                  <SelectItem
-                    className="text-base font-normal text-dark-500"
-                    value={"INACTIVE"}
-                  >
-                    Inactive
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"coverUrl"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Gear Image
-              </FormLabel>
-              <FormControl>
-                <FileUpload
-                  type="image"
-                  accept="image/*"
-                  placeholder="Upload a gear image"
-                  folder="gear/covers"
-                  variant="light"
-                  onFileChange={field.onChange}
-                  value={field.value}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name={"notes"}
-          render={({ field }) => (
-            <FormItem className="flex flex-col gap-1">
-              <FormLabel className="text-base font-normal text-dark-500">
-                Notes
-              </FormLabel>
-              <FormControl>
-                <Textarea
-                  className="book-form_input"
-                  placeholder="Notes"
-                  {...field}
-                  rows={5}
-                />
-              </FormControl>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-wrap gap-4"
+      >
+        <div className="w-full">
+          <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
+            Informações básicas
+          </h1>
+          <Separator />
+        </div>
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name={"name"}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1 ">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Nome do equipamento
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Informe o nome do equipamento"
+                    required
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name={"brand"}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1 ">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Marca do equipamento
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Informe a marca do equipamento"
+                    required
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name={"model"}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1 ">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Modelo do equipamento
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Informe o modelo do equipamento"
+                    required
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-[calc(50%-0.5rem)]">
+          <FormField
+            control={form.control}
+            name={"type"}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Tipo do equipamento
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl className="book-form_input">
+                    <SelectTrigger>
+                      <SelectValue
+                        className="text-base font-normal text-dark-500"
+                        placeholder="Selecione o tipo do equipamento"
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
+                      value={"DRONE"}
+                    >
+                      Drone
+                    </SelectItem>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
+                      value={"CAMERA"}
+                    >
+                      Camera
+                    </SelectItem>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
+                      value={"LENS"}
+                    >
+                      Lens
+                    </SelectItem>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
+                      value={"ACCESSORY"}
+                    >
+                      Accessory
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-full">
+          <FormField
+            control={form.control}
+            name={"status"}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Status do equipamento
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl className="book-form_input">
+                    <SelectTrigger>
+                      <SelectValue
+                        className="text-base font-normal text-dark-500"
+                        placeholder="Seleciona o status do equipamento"
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
+                      value={"AVAILABLE"}
+                    >
+                      Disponível
+                    </SelectItem>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
+                      value={"IN_USE"}
+                    >
+                      Em Uso
+                    </SelectItem>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
+                      value={"UNDER_MAINTENANCE"}
+                    >
+                      Em Manutenção
+                    </SelectItem>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
+                      value={"INACTIVE"}
+                    >
+                      Inativo
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-full">
+          <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
+            Informações de aquisição
+          </h1>
+          <Separator />
+        </div>
+
+        <div className="w-full">
+          <FormField
+            control={form.control}
+            name="purchaseDate"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Data de aquisição do equipamento
+                </FormLabel>
+                <FormControl>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "book-form_input justify-start text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {field.value ? (
+                          format(new Date(field.value), "PPP")
+                        ) : (
+                          <span className="text-base font-normal">
+                            Escolha a data de aquisição do equipamento
+                          </span>
+                        )}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0">
+                      <Calendar
+                        mode="single"
+                        selected={
+                          field.value ? new Date(field.value) : undefined
+                        }
+                        onSelect={(selectedDate) => {
+                          field.onChange(selectedDate) // Atualiza o formulário
+                        }}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-full">
+          <FormField
+            control={form.control}
+            name={"purchaseValue"}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Valor de compra do equipamento
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Informe o valor de compra do equipamento"
+                    {...field}
+                    className="book-form_input"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-full">
+          <FormField
+            control={form.control}
+            name={"serialNumber"}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1 ">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Serial Number
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className="book-form_input"
+                    placeholder="Informe o Serial Number do equipamento"
+                    required
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-full">
+          <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
+            Outros
+          </h1>
+          <Separator />
+        </div>
+
+        <div className="w-full">
+          <FormField
+            control={form.control}
+            name={"coverUrl"}
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Imagem do equipamento
+                </FormLabel>
+                <FormControl>
+                  <FileUpload
+                    type="image"
+                    accept="image/*"
+                    placeholder="Faça o envio de uma imagem"
+                    folder="gear/covers"
+                    variant="light"
+                    onFileChange={field.onChange}
+                    value={field.value}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="w-full">
+          <FormField
+            control={form.control}
+            name="notes"
+            render={({ field }) => (
+              <FormItem className="flex flex-col gap-1">
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Notas
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    className="book-form_input"
+                    placeholder="Notas"
+                    rows={5}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <Button className="book-form_btn text-white" type="submit">
           Add Gear
         </Button>

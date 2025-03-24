@@ -73,6 +73,7 @@ export const companies = pgTable("companies", {
 
 export const companyResponsibles = pgTable("company_responsibles", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+
   companyId: uuid("company_id").references(() => companies.id, {
     onDelete: "cascade",
   }),
@@ -99,16 +100,21 @@ export const books = pgTable("books", {
 
 export const gears = pgTable("gear_equipments", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+
   name: varchar("name", { length: 255 }).notNull(),
-  type: varchar("type", { length: 50 }).notNull(),
   brand: varchar("brand", { length: 255 }).notNull(),
   model: varchar("model", { length: 255 }).notNull(),
-  serialNumber: varchar("serial_number", { length: 255 }).notNull().unique(),
+
+  type: varchar("type", { length: 50 }).notNull(),
+  status: varchar("status", { length: 50 }).notNull().default("AVAILABLE"),
+
   purchaseDate: timestamp("purchase_date", { withTimezone: true }).notNull(),
   purchaseValue: varchar("purchase_value", { length: 20 }).notNull(),
-  status: varchar("status", { length: 50 }).notNull().default("AVAILABLE"),
-  notes: text("notes"),
+  serialNumber: varchar("serial_number", { length: 255 }).notNull().unique(),
+
   coverUrl: text("cover_url").notNull(),
+  notes: text("notes"),
+
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   companyId: uuid("company_id").references(() => companies.id),
 })

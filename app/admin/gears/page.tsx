@@ -21,6 +21,7 @@ import Image from "next/image"
 import { capitalizeFirstLetter } from "@/lib/utils"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
+import { Badge } from "@/components/ui/badge"
 
 const Page = async () => {
   const session = await auth()
@@ -39,10 +40,10 @@ const Page = async () => {
   return (
     <section className="w-full rounded-2xl bg-white p-7">
       <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold">All Gears</h2>
+        <h2 className="text-xl font-semibold">Equipamentos</h2>
         <Button className="bg-primary-admin" asChild>
           <Link href="/admin/gears/new" className="text-white">
-            + New Gear
+            + Novo Equipamento
           </Link>
         </Button>
       </div>
@@ -51,12 +52,13 @@ const Page = async () => {
         <Table>
           <TableHeader>
             <TableRow className="text-sm font-bold">
-              <TableHead>Name</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Brand</TableHead>
-              <TableHead>Model</TableHead>
+              <TableHead>Nome do equipamento</TableHead>
+              <TableHead>Tipo</TableHead>
+              <TableHead>Marca</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Action</TableHead>
+              <TableHead>Usado</TableHead>
+              <TableHead>Data de compra</TableHead>
+              <TableHead>Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -73,13 +75,18 @@ const Page = async () => {
                   {gearItem.name}
                 </TableCell>
                 <TableCell>{capitalizeFirstLetter(gearItem.type)}</TableCell>
+
+                <TableCell>{gearItem.brand}</TableCell>
+                <TableCell>{capitalizeFirstLetter(gearItem.status)}</TableCell>
+                <TableCell>
+                  <Badge variant="outline">0</Badge> projetos
+                </TableCell>
                 <TableCell>
                   {gearItem.purchaseDate
                     ? gearItem.purchaseDate.toLocaleDateString()
                     : "N/A"}
                 </TableCell>
-                <TableCell>{gearItem.model}</TableCell>
-                <TableCell>{capitalizeFirstLetter(gearItem.status)}</TableCell>
+                <TableCell>None</TableCell>
               </TableRow>
             ))}
           </TableBody>

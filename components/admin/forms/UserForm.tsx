@@ -30,6 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
 
 const generateRandomPassword = (length: number = 8) => {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -118,7 +119,7 @@ const UserForm = ({ type, ...user }: Props) => {
           <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
             Dados pessoais
           </h1>
-          <hr className="mb-4 " />
+          <Separator />
         </div>
 
         <div className="w-[calc(50%-0.5rem)]">
@@ -245,7 +246,7 @@ const UserForm = ({ type, ...user }: Props) => {
           <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
             Documentos
           </h1>
-          <hr className="mb-4 " />
+          <Separator />
         </div>
 
         <div className="w-[calc(50%-0.5rem)]">
@@ -340,7 +341,7 @@ const UserForm = ({ type, ...user }: Props) => {
           <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
             Contato
           </h1>
-          <hr className="mb-4 " />
+          <Separator />
         </div>
 
         <div className="w-[calc(50%-0.5rem)]">
@@ -391,7 +392,7 @@ const UserForm = ({ type, ...user }: Props) => {
           <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
             Endereço
           </h1>
-          <hr className="mb-4 " />
+          <Separator />
         </div>
 
         <div className="w-full">
@@ -530,7 +531,7 @@ const UserForm = ({ type, ...user }: Props) => {
           <h1 className="text-xl mt-6 mb-1 font-semibold text-dark-500">
             Outros
           </h1>
-          <hr className="mb-4 " />
+          <Separator />
         </div>
 
         <div className="w-full">
