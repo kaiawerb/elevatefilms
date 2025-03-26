@@ -22,6 +22,7 @@ import Image from "next/image"
 import { User } from "next-auth"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
+import { Eye, Pencil, Trash } from "lucide-react"
 
 const Page = async () => {
   const session = await auth()
@@ -55,15 +56,18 @@ const Page = async () => {
             <TableRow className="text-sm font-bold">
               <TableHead>Nome e E-mail</TableHead>
               <TableHead>Tipo de usuário</TableHead>
-              <TableHead>Phone</TableHead>
+              <TableHead>Gênero</TableHead>
+              <TableHead>Telefone</TableHead>
               <TableHead>Cadastrado em</TableHead>
-              <TableHead>Cadastrado em</TableHead>
-              <TableHead>Actions</TableHead>
+              <TableHead>Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {userList.map((user) => (
-              <TableRow className="text-sm font-semibold mt-5" key={user.id}>
+              <TableRow
+                className="text-sm font-semibold font-ibm-plex-sans mt-5 text-[#1E293B]"
+                key={user.id}
+              >
                 <TableCell className="font-medium">
                   <div className="flex flex-row gap-2 items-center">
                     <Avatar>
@@ -78,18 +82,19 @@ const Page = async () => {
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col max-md:hidden">
-                      <p className="font-semibold text-dark-200">
-                        {user.fullname}
-                      </p>
-                      <p className="text-xs text-light-500">{user.email}</p>
+                      <p className="font-semibold">{user.fullname}</p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>{capitalizeFirstLetter(user.role)}</TableCell>
-                <TableCell>
-                  {user.createdAt ? user.createdAt.toLocaleDateString() : "N/A"}
-                </TableCell>
+                <TableCell>{user.genre || "Não informado"}</TableCell>
                 <TableCell>{user.phone ?? "N/A"}</TableCell>
+                <TableCell>
+                  {user.createdAt
+                    ? new Date(user.createdAt).toLocaleDateString("pt-BR")
+                    : "N/A"}
+                </TableCell>
+                <TableCell>Empty</TableCell>
               </TableRow>
             ))}
           </TableBody>

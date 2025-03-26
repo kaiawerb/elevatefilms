@@ -36,7 +36,7 @@ const Page = async () => {
     <section className="w-full rounded-2xl bg-white p-7">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="text-xl font-semibold">Empresas</h2>
-        <Button className="bg-primary-admin" asChild>
+        <Button className="bg-primary-admin hover:bg-blue-700" asChild>
           <Link href="/admin/companies/new" className="text-white">
             + Nova Empresa
           </Link>
@@ -55,7 +55,7 @@ const Page = async () => {
           </TableHeader>
           <TableBody>
             {companiesList.map((company) => (
-              <TableRow className="text-sm font-medium" key={company.id}>
+              <TableRow className="text-sm font-bold" key={company.id}>
                 <TableCell className="font-medium">{company.name}</TableCell>
                 <TableCell>{company.cnpj}</TableCell>
                 <TableCell>{company.email}</TableCell>
