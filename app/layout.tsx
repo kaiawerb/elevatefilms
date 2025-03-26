@@ -7,6 +7,15 @@ import { Toaster } from "@/components/ui/toaster"
 import { SessionProvider } from "next-auth/react"
 import { auth } from "@/auth"
 
+const Poppins = localFont({
+  src: [
+    { path: "/fonts/Poppins-Regular.ttf", weight: "400", style: "normal" },
+    { path: "/fonts/Poppins-Medium.ttf", weight: "500", style: "normal" },
+    { path: "/fonts/Poppins-Bold.ttf", weight: "600", style: "normal" },
+  ],
+  variable: "--poppins",
+})
+
 const ibmPlexSans = localFont({
   src: [
     {
@@ -52,10 +61,10 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth()
 
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <SessionProvider session={session}>
         <body
-          className={`${ibmPlexSans.className} ${bebasNeue.variable} antialiased`}
+          className={`${ibmPlexSans.className} ${bebasNeue.variable} ${Poppins.variable} antialiased`}
         >
           {children}
           <Toaster />
