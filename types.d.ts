@@ -116,15 +116,21 @@ interface UserParams {
   notes?: string
 }
 
-interface Column {
+export interface Column {
   id: string | number
   title: string
 }
 
-interface Task {
-  id: id
-  columnId: id
+export interface Task {
+  id: string | number
+  columnId: string | number
   content: string
+  description?: string
+  priority?: "low" | "medium" | "high"
+  category?: string
+  media?: string[]
+  comments?: string[]
+  createdAt?: string
 }
 
 declare module "next-auth" {

@@ -5,6 +5,7 @@ import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import KanbanTaskCard from "./BoardTaskCard"
 import { Button } from "@/components/ui/button"
+
 interface Props {
   column: Column
   deleteColumn: (id: Column["id"]) => void
@@ -67,7 +68,7 @@ function KanbanColumnContainer(props: Props) {
     <div
       ref={setNodeRef}
       style={styles}
-      className="flex flex-col p-4 shadow-xl rounded-md bg-zinc-200 w-[276px min-w-[276px] max-h-[476px]"
+      className="flex flex-col p-4 shadow-sm rounded-md bg-athensgrey-50 w-[276px] min-w-[276px] max-h-[476px]"
     >
       <div
         className="flex cursor-grab items-center justify-between"
@@ -75,7 +76,7 @@ function KanbanColumnContainer(props: Props) {
         {...listeners}
       >
         <div
-          className="w-auto text-gray-600 text-base font-semibold"
+          className="w-auto text-athensgrey-800 text-base font-semibold"
           onClick={() => {
             setEditMode(true)
           }}
@@ -101,21 +102,10 @@ function KanbanColumnContainer(props: Props) {
         <Button
           className="hover:bg-zinc-100 p-3"
           variant={"ghost"}
-          onClick={() => {}}
+          onClick={() => deleteColumn(column.id)}
         >
           <Ellipsis className="text-gray-500" />
         </Button>
-        {/* <div className="flex flex-row gap-4">
-          
-          <Button
-            className="justify-start border text-base text-gray-500 border-none shadow-none bg-white p-0 hover:bg-white"
-            onClick={() => {
-              deleteColumn(column.id)
-            }}
-          >
-            <Trash />
-          </Button>
-        </div> */}
       </div>
 
       <div className="flex flex-col gap-2 overflow-x-hidden overflow-y-auto mb-2 mt-2">
@@ -132,7 +122,7 @@ function KanbanColumnContainer(props: Props) {
       </div>
 
       <Button
-        className="justify-start bg-zinc-200 text-sm text-slate-500 border-0 shadow-none p-2 hover:bg-zinc-100"
+        className="justify-start bg-transparent!important text-sm text-slate-500 border-0 shadow-none p-2 hover:bg-athensgrey-200"
         onClick={() => {
           createTask(column.id)
         }}

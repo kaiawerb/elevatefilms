@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useMemo, useState } from "react"
+import React, { useMemo, useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Column, Task } from "@/types"
 import {
@@ -19,21 +19,43 @@ import { createPortal } from "react-dom"
 import BoardTaskCard from "./BoardTaskCard"
 
 const BoardView = () => {
-  const [columns, setColumns] = useState<Column[]>([])
+  // Inicializa colunas lendo do localStorage
+  const [columns, setColumns] = useState<Column[]>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("board-columns")
+      return saved ? JSON.parse(saved) : []
+    }
+    return []
+  })
+
+  // Inicializa tasks lendo do localStorage
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("board-tasks")
+      return saved ? JSON.parse(saved) : []
+    }
+    return []
+  })
+
   const columnsId = useMemo(() => columns.map((column) => column.id), [columns])
-
-  const [tasks, setTasks] = useState<Task[]>([])
-
   const [activeColumn, setActiveColumn] = useState<Column | null>(null)
   const [activeTask, setActiveTask] = useState<Task | null>(null)
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 3,
-      },
+      activationConstraint: { distance: 3 },
     })
   )
+
+  // Sempre salvar alterações no localStorage
+  useEffect(() => {
+    localStorage.setItem("board-columns", JSON.stringify(columns))
+  }, [columns])
+
+  useEffect(() => {
+    localStorage.setItem("board-tasks", JSON.stringify(tasks))
+  }, [tasks])
+
   return (
     <main className="shadow-xl overflow-x-scroll overflow-y-auto h-[300px]">
       <DndContext
@@ -60,9 +82,7 @@ const BoardView = () => {
           <Button
             className="max-w-44"
             variant="outline"
-            onClick={() => {
-              createNewColumn()
-            }}
+            onClick={createNewColumn}
           >
             + Add Column
           </Button>
@@ -102,7 +122,6 @@ const BoardView = () => {
       id: generateId(),
       title: `Column ${columns.length + 1}`,
     }
-
     setColumns([...columns, columnToAdd])
   }
 
@@ -111,58 +130,68 @@ const BoardView = () => {
       id: generateId(),
       columnId,
       content: `Task ${tasks.length + 1}`,
+      description: "",
+      createdAt: new Date().toISOString(),
+      category: "", // Adicionar uma categoria opcional
+      priority: "medium", // Garantindo que o valor é um dos três tipos esperados
+      comments: [], // Inicializa com um array vazio de comentários
+      media: [], // Inicializa com um array vazio de mídia
     }
-
     setTasks([...tasks, newTask])
   }
 
-  function deleteTask(id: Column["id"]) {
-    const newTasks = tasks.filter((task) => task.id !== id)
-
-    setTasks(newTasks)
+  function deleteTask(id: Task["id"]) {
+    setTasks(tasks.filter((task) => task.id !== id))
   }
 
-  function updateTask(id: Column["id"], content: string) {
-    const newTasks = tasks.map((task) => {
-      if (task.id !== id) return task
-
-      return { ...task, content }
-    })
-
-    setTasks(newTasks)
+  function updateTask(
+    id: Task["id"],
+    content: string,
+    description?: string,
+    priority?: "low" | "medium" | "high",
+    category?: string,
+    media?: string[],
+    comments?: string[]
+  ) {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id
+          ? {
+              ...task,
+              content,
+              description: description ?? task.description,
+              priority: priority ?? task.priority,
+              category: category ?? task.category,
+              media: media ?? task.media,
+              comments: comments ?? task.comments,
+            }
+          : task
+      )
+    )
   }
 
   function deleteColumn(id: Column["id"]) {
-    const filteredColumns = columns.filter((column) => column.id !== id)
-    setColumns(filteredColumns)
-
-    const newTasks = tasks.filter((t) => t.columnId !== id)
-    setTasks(newTasks)
+    setColumns(columns.filter((column) => column.id !== id))
+    setTasks(tasks.filter((task) => task.columnId !== id))
   }
 
   function updateColumn(id: Column["id"], title: string) {
-    const newColumns = columns.map((column) => {
-      if (column.id !== id) return column
-
-      return { ...column, title }
-    })
-
-    setColumns(newColumns)
+    setColumns(
+      columns.map((column) =>
+        column.id === id ? { ...column, title } : column
+      )
+    )
   }
 
   function generateId() {
-    return Math.floor(Math.random() * 1001)
+    return Math.floor(Math.random() * 1000000000)
   }
 
   function onDragStart(event: DragStartEvent) {
     if (event.active.data.current?.type === "Column") {
       setActiveColumn(event.active.data.current.column)
-      return
-    }
-
-    if (event.active.data.current?.type === "Task") {
+    } else if (event.active.data.current?.type === "Task") {
       setActiveTask(event.active.data.current.task)
-      return
     }
   }
 
@@ -171,7 +200,6 @@ const BoardView = () => {
     setActiveTask(null)
 
     const { active, over } = event
-
     if (!over) return
 
     const activeColumnId = active.id
@@ -180,55 +208,39 @@ const BoardView = () => {
     if (activeColumnId === overColumnId) return
 
     setColumns((columns) => {
-      const activeColumnIndex = columns.findIndex(
-        (column) => column.id === activeColumnId
-      )
-
-      const overColumnIndex = columns.findIndex(
-        (column) => column.id === overColumnId
-      )
-
-      return arrayMove(columns, activeColumnIndex, overColumnIndex)
+      const activeIndex = columns.findIndex((c) => c.id === activeColumnId)
+      const overIndex = columns.findIndex((c) => c.id === overColumnId)
+      return arrayMove(columns, activeIndex, overIndex)
     })
   }
 
   function onDragOver(event: DragOverEvent) {
     const { active, over } = event
-
     if (!over) return
 
     const activeId = active.id
     const overId = over.id
-
     if (activeId === overId) return
 
-    const isActiveATask = active.data.current?.type === "Task"
-    const isOverATask = over.data.current?.type === "Task"
+    const isActiveTask = active.data.current?.type === "Task"
+    const isOverTask = over.data.current?.type === "Task"
 
-    if (!isActiveATask) return
-
-    // Dropping Task over another task
-    if (isActiveATask && isOverATask) {
+    if (isActiveTask && isOverTask) {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId)
         const overIndex = tasks.findIndex((t) => t.id === overId)
-
         tasks[activeIndex].columnId = tasks[overIndex].columnId
-
         return arrayMove(tasks, activeIndex, overIndex)
       })
     }
 
-    // Dropping Task over a column
-    const isOverAColumn = over.data.current?.type === "Column"
+    const isOverColumn = over.data.current?.type === "Column"
 
-    if (isActiveATask && isOverAColumn) {
+    if (isActiveTask && isOverColumn) {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId)
-
         tasks[activeIndex].columnId = overId
-
-        return arrayMove(tasks, activeIndex, activeIndex)
+        return [...tasks]
       })
     }
   }
