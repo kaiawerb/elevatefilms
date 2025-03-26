@@ -10,18 +10,21 @@ import { Session } from "next-auth"
 import { LogOutIcon, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "../ui/button"
 import { signOut } from "next-auth/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import config from "@/lib/config"
 
 const Sidebar = ({ session }: { session: Session }) => {
   const pathName = usePathname()
-  const [collapsed, setCollapsed] = useState(() => {
-    if (typeof window !== "undefined") {
-      const savedState = localStorage.getItem("sidebar-collapsed")
-      return savedState === "true"
+  const [collapsed, setCollapsed] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    const savedState = localStorage.getItem("sidebar-collapsed")
+    if (savedState) {
+      setCollapsed(savedState === "true")
     }
-    return false
-  })
+  }, [])
 
   const toggleSidebar = () => {
     setCollapsed((prev) => {
@@ -29,6 +32,8 @@ const Sidebar = ({ session }: { session: Session }) => {
       return !prev
     })
   }
+
+  if (!mounted) return null // ou um skeleton
 
   return (
     <div
