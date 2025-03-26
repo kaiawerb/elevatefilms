@@ -15,7 +15,20 @@ import config from "@/lib/config"
 
 const Sidebar = ({ session }: { session: Session }) => {
   const pathName = usePathname()
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(() => {
+    if (typeof window !== "undefined") {
+      const savedState = localStorage.getItem("sidebar-collapsed")
+      return savedState === "true"
+    }
+    return false
+  })
+
+  const toggleSidebar = () => {
+    setCollapsed((prev) => {
+      localStorage.setItem("sidebar-collapsed", String(!prev))
+      return !prev
+    })
+  }
 
   return (
     <div
@@ -36,7 +49,7 @@ const Sidebar = ({ session }: { session: Session }) => {
             {!collapsed && <h1>Syncwise</h1>}
           </div>
           <button
-            onClick={() => setCollapsed(!collapsed)}
+            onClick={toggleSidebar}
             className="text-primary-admin hover:text-primary-admin/80 transition-all"
           >
             {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
