@@ -11,8 +11,16 @@ interface Props {
   deleteColumn: (id: Column["id"]) => void
   updateColumn: (id: Column["id"], title: string) => void
   createTask: (columnId: Column["id"]) => void
-  deleteTask: (id: Column["id"]) => void
-  updateTask: (id: Column["id"], content: string) => void
+  deleteTask: (id: Task["id"]) => void
+  updateTask: (
+    id: Task["id"],
+    content: string,
+    description?: string,
+    priority?: "low" | "medium" | "high",
+    category?: string,
+    media?: string[],
+    comments?: string[]
+  ) => void
   tasks: Task[]
 }
 
