@@ -12,10 +12,13 @@ import {
 } from "@/components/ui/table"
 import { auth } from "@/auth"
 import { db } from "@/database/drizzle"
-import { Company } from "@/types"
+import { Company, CompanyParams } from "@/types"
 import { companies } from "@/database/schema"
 import { desc, eq } from "drizzle-orm"
 import { redirect } from "next/navigation"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import Image from "next/image"
+import config from "@/lib/config"
 
 const Page = async () => {
   const session = await auth()
@@ -30,7 +33,7 @@ const Page = async () => {
     .from(companies)
     .limit(10)
     .where(eq(companies.id, session.user.companyId))
-    .orderBy(desc(companies.createdAt))) as Company[]
+    .orderBy(desc(companies.createdAt))) as unknown as Company[]
 
   return (
     <section className="w-full rounded-2xl bg-white p-7">
@@ -47,19 +50,41 @@ const Page = async () => {
         <Table>
           <TableHeader>
             <TableRow className="text-sm font-bold">
-              <TableHead>Name</TableHead>
+              <TableHead>Nome</TableHead>
               <TableHead>CNPJ</TableHead>
-              <TableHead>E-mail</TableHead>
-              <TableHead>Phone</TableHead>
+              <TableHead>Telefone</TableHead>
+              <TableHead>Cidade</TableHead>
+              <TableHead>Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {companiesList.map((company) => (
-              <TableRow className="text-sm font-bold" key={company.id}>
-                <TableCell className="font-medium">{company.name}</TableCell>
+              <TableRow
+                className="text-sm font-semibold font-ibm-plex-sans mt-5 text-[#1E293B]"
+                key={company.id}
+              >
+                <TableCell className="font-medium">
+                  <div className="flex flex-row gap-2 items-center">
+                    <Avatar>
+                      <AvatarFallback className="bg-gray-200">
+                        <Image
+                          src={`${config.env.imagekit.urlEndpoint}${company.image}`}
+                          alt={`Profile Image ${company.name}`}
+                          width={40}
+                          height={40}
+                          className="object-cover rounded-full"
+                        />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col max-md:hidden">
+                      <p className="font-semibold">{company.name}</p>
+                      <p className="font-light">{company.email}</p>
+                    </div>
+                  </div>
+                </TableCell>
                 <TableCell>{company.cnpj}</TableCell>
-                <TableCell>{company.email}</TableCell>
                 <TableCell>{company.phone}</TableCell>
+                <TableCell>{company.city}</TableCell>
               </TableRow>
             ))}
           </TableBody>

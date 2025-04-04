@@ -2,27 +2,27 @@ export const adminSideBarLinks = [
   {
     img: "/icons/admin/home.svg",
     route: "/admin",
-    text: "Home",
+    text: "Início",
   },
   {
     img: "/icons/admin/users.svg",
     route: "/admin/users",
-    text: "Users",
+    text: "Usuários",
   },
   {
     img: "/icons/admin/building-2.svg",
     route: "/admin/companies",
-    text: "Companies",
+    text: "Empresas",
   },
   {
     img: "/icons/admin/camera.svg",
     route: "/admin/gears",
-    text: "Gears",
+    text: "Equipamentos",
   },
   {
     img: "/icons/admin/book.svg",
     route: "/admin/board",
-    text: "Board",
+    text: "Quadro",
   },
 ]
 

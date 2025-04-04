@@ -67,7 +67,7 @@ export const gearSchema = z.object({
     message: "O tipo deve ser DRONE, CAMERA, LENS ou ACCESSORY.",
   }),
   status: z
-    .enum(["AVAILABLE", "IN_USE", "UNDER_MAINTENANCE", "INACTIVE"], {
+    .enum(["AVAILABLE", "IN_USE", "UNDER_MAINTENANCE", "INACTIVE", "TO_BUY"], {
       message:
         "O status deve ser AVAILABLE, IN_USE, UNDER_MAINTENANCE ou INACTIVE.",
     })
@@ -81,20 +81,32 @@ export const gearSchema = z.object({
 
   coverUrl: z.string(),
   notes: z.string().optional(),
+  companyId: z.string().optional(),
 })
 
 export const companySchema = z.object({
   id: z.string().uuid().optional(), // ID gerado automaticamente
+
   name: z
     .string()
     .min(2, "O nome da empresa deve ter pelo menos 2 caracteres."),
+  email: z.string().email("E-mail inválido."),
+
   cnpj: z
     .string()
     .regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido."),
-  address: z.string(), // Endereço pode ser opcional
   phone: z
     .string()
     .regex(/^\(?\d{2}\)?\s?\d{4,5}-\d{4}$/, "Telefone inválido."),
-  email: z.string().email("E-mail inválido."),
+
+  street: z.string(),
+  city: z.string(),
+  neighborhood: z.string(),
+  state: z.string(),
+  zipCode: z.string(),
+  complement: z.string(),
+
   createdAt: z.date().default(new Date()), // Data de criação padrão
+  notes: z.string(),
+  image: z.string(),
 })

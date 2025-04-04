@@ -45,7 +45,7 @@ interface Gear {
   type: string
   brand: string
   model: string
-  serialNumber: string
+  serialNumber?: string
   purchaseDate: Date | null
   purchaseValue: string
   status: string
@@ -60,11 +60,11 @@ interface GearParams {
   model: string
 
   type: "DRONE" | "CAMERA" | "LENS" | "ACCESSORY"
-  status: "AVAILABLE" | "IN_USE" | "UNDER_MAINTENANCE" | "INACTIVE"
+  status: "AVAILABLE" | "IN_USE" | "UNDER_MAINTENANCE" | "INACTIVE" | "TO_BUY"
 
   purchaseDate: Date
   purchaseValue: string
-  serialNumber: string
+  serialNumber?: string
 
   coverUrl: string
   notes?: string
@@ -74,19 +74,30 @@ interface Company {
   id?: string
   name: string
   cnpj: string
-  address: string
+  city?: string
   phone: string
   email?: string
   companyId: string
   createdAt?: Date | null
+  image: string
 }
 
 interface CompanyParams {
   name: string
-  cnpj: string
-  address: string
-  phone: string
   email: string
+
+  phone: string
+  cnpj: string
+
+  street?: string
+  city: string
+  neighborhood?: string
+  state?: string
+  zipCode?: string
+  complement?: string
+
+  notes?: string
+  image?: string
 }
 
 interface UserParams {
@@ -114,6 +125,7 @@ interface UserParams {
   complement?: string
 
   notes?: string
+  companyId?: string
 }
 
 export interface Column {

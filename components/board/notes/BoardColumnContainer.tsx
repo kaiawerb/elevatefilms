@@ -5,6 +5,12 @@ import { SortableContext, useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import KanbanTaskCard from "./BoardTaskCard"
 import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 interface Props {
   column: Column
@@ -34,12 +40,9 @@ function KanbanColumnContainer(props: Props) {
     updateTask,
     tasks,
   } = props
-
   const [editMode, setEditMode] = useState(false)
 
-  const tasksIds = useMemo(() => {
-    return tasks.map((task) => task.id)
-  }, [tasks])
+  const tasksIds = useMemo(() => tasks.map((task) => task.id), [tasks])
 
   const {
     setNodeRef,
@@ -50,10 +53,7 @@ function KanbanColumnContainer(props: Props) {
     isDragging,
   } = useSortable({
     id: column.id,
-    data: {
-      type: "Column",
-      column,
-    },
+    data: { type: "Column", column },
     disabled: editMode,
   })
 
@@ -67,7 +67,7 @@ function KanbanColumnContainer(props: Props) {
       <div
         ref={setNodeRef}
         style={styles}
-        className="flex flex-col bg-zinc-200 w-[276px] min-w-[276px] opacity-70 max-h-[456px] text-white rounded-sm "
+        className="flex flex-col bg-zinc-200 w-[276px] min-w-[276px] opacity-70 max-h-[456px] text-white rounded-sm"
       ></div>
     )
   }
@@ -85,9 +85,7 @@ function KanbanColumnContainer(props: Props) {
       >
         <div
           className="w-auto text-athensgrey-800 text-base font-semibold"
-          onClick={() => {
-            setEditMode(true)
-          }}
+          onClick={() => setEditMode(true)}
         >
           {!editMode && column.title}
           {editMode && (
@@ -96,24 +94,27 @@ function KanbanColumnContainer(props: Props) {
               value={column.title}
               onChange={(e) => updateColumn(column.id, e.target.value)}
               autoFocus
-              onBlur={() => {
-                setEditMode(false)
-              }}
-              onKeyDown={(e) => {
-                if (e.key !== "Enter") return
-                setEditMode(false)
-              }}
+              onBlur={() => setEditMode(false)}
+              onKeyDown={(e) => e.key === "Enter" && setEditMode(false)}
             />
           )}
         </div>
 
-        <Button
-          className="hover:bg-zinc-100 p-3"
-          variant={"ghost"}
-          onClick={() => deleteColumn(column.id)}
-        >
-          <Ellipsis className="text-gray-500" />
-        </Button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button className="hover:bg-zinc-100 p-3" variant="ghost">
+              <Ellipsis className="text-gray-500" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              className="text-red-500"
+              onClick={() => deleteColumn(column.id)}
+            >
+              Deletar Coluna
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       <div className="flex flex-col gap-2 overflow-x-hidden overflow-y-auto mb-2 mt-2">
@@ -131,9 +132,7 @@ function KanbanColumnContainer(props: Props) {
 
       <Button
         className="justify-start bg-transparent!important text-sm text-slate-500 border-0 shadow-none p-2 hover:bg-athensgrey-200"
-        onClick={() => {
-          createTask(column.id)
-        }}
+        onClick={() => createTask(column.id)}
       >
         <PlusIcon className="text-gray-500" />
         Adicionar um cartão

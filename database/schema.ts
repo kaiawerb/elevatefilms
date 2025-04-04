@@ -50,9 +50,7 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   role: ROLE_ENUM("role").default("CLIENT"),
 
-  companyId: uuid("company_id").references(() => companies.id, {
-    onDelete: "cascade",
-  }),
+  companyId: uuid("company_id").references(() => companies.id),
 })
 
 export const companies = pgTable("companies", {
@@ -62,13 +60,18 @@ export const companies = pgTable("companies", {
   email: text("email").unique(),
 
   cnpj: varchar("cnpj", { length: 18 }).unique(),
-
-  address: text("address"),
-
   phone: varchar("phone", { length: 15 }),
 
+  street: varchar("street", { length: 255 }),
+  complement: varchar("complement", { length: 100 }),
+  neighborhood: varchar("neighborhood", { length: 100 }),
+  zipCode: varchar("zip_code", { length: 20 }),
+  city: varchar("city", { length: 100 }),
+  state: varchar("state", { length: 50 }),
+
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
-  image: text("image").default("/user/profileImage/profileUrlPlaceHolder.png"),
+  image: text("image").default("/gear/covers/gearCoverPlaceHolder.png"),
+  notes: text("notes"),
 })
 
 export const companyResponsibles = pgTable("company_responsibles", {
@@ -110,11 +113,19 @@ export const gears = pgTable("gear_equipments", {
 
   purchaseDate: timestamp("purchase_date", { withTimezone: true }).notNull(),
   purchaseValue: varchar("purchase_value", { length: 20 }).notNull(),
-  serialNumber: varchar("serial_number", { length: 255 }).notNull().unique(),
+  serialNumber: varchar("serial_number", { length: 255 }).unique(),
 
   coverUrl: text("cover_url").notNull(),
   notes: text("notes"),
 
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   companyId: uuid("company_id").references(() => companies.id),
+})
+
+export const propertyCoordinates = pgTable("property_coordinates", {
+  id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+  propertyId: uuid("property_id"), // se o id do imóvel for UUID, ou integer se for integer
+  companyId: uuid("company_id").references(() => companies.id),
+  latitude: varchar("latitude").notNull(),
+  longitude: varchar("longitude").notNull(),
 })

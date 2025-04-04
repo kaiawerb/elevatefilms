@@ -18,7 +18,7 @@ import { desc, eq } from "drizzle-orm"
 
 import config from "@/lib/config"
 import Image from "next/image"
-import { capitalizeFirstLetter } from "@/lib/utils"
+import { capitalizeFirstLetter, formatStatus } from "@/lib/utils"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
@@ -77,10 +77,8 @@ const Page = async () => {
                 <TableCell>{capitalizeFirstLetter(gearItem.type)}</TableCell>
 
                 <TableCell>{gearItem.brand}</TableCell>
-                <TableCell>{capitalizeFirstLetter(gearItem.status)}</TableCell>
-                <TableCell>
-                  <Badge variant="outline">0</Badge> projetos
-                </TableCell>
+                <TableCell>{formatStatus(gearItem.status)}</TableCell>
+                <TableCell>Abc</TableCell>
                 <TableCell>
                   {gearItem.purchaseDate
                     ? gearItem.purchaseDate.toLocaleDateString()

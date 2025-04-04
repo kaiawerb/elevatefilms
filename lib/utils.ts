@@ -19,3 +19,10 @@ export const capitalizeFirstLetter = (str: string | null) => {
   if (!str) return "Unknown" // Ou outra string padrão
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 }
+
+export const formatStatus = (status: string) => {
+  return status
+    .toLowerCase() // Transforma tudo para minúsculo
+    .replace(/_/g, " ") // Substitui "_" por espaço
+    .replace(/\b\w/g, (char) => char.toUpperCase()) // Capitaliza cada palavra
+}

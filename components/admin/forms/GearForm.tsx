@@ -55,13 +55,17 @@ const GearForm = ({ type, ...gear }: Props) => {
       name: "",
       brand: "",
       model: "",
+
       type: undefined,
       status: undefined,
+
       purchaseDate: new Date(),
       purchaseValue: "",
+
       serialNumber: "",
       coverUrl: "",
       notes: "",
+      companyId: "",
     },
   })
 
@@ -74,7 +78,7 @@ const GearForm = ({ type, ...gear }: Props) => {
         description: "Gear created successfully",
       })
 
-      //router.push(`/admins/books/${result.data.id}`)
+      router.push(`/admin/gears`)
     } else {
       toast({
         title: "Error",
@@ -262,6 +266,12 @@ const GearForm = ({ type, ...gear }: Props) => {
                     </SelectItem>
                     <SelectItem
                       className="text-base font-normal text-dark-500"
+                      value={"TO_BUY"}
+                    >
+                      Comprar
+                    </SelectItem>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
                       value={"INACTIVE"}
                     >
                       Inativo
@@ -380,6 +390,48 @@ const GearForm = ({ type, ...gear }: Props) => {
             Outros
           </h1>
           <Separator />
+        </div>
+
+        <div className="w-full">
+          <FormField
+            control={form.control}
+            name={"companyId"}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-base font-normal text-dark-500">
+                  Empresa que será inserido
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl className="book-form_input">
+                    <SelectTrigger>
+                      <SelectValue
+                        className="text-base font-normal text-dark-500"
+                        placeholder="Empresa que será inserido"
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
+                      value={"04caaa02-ce7f-440b-ac62-ae7fef5aeb52"}
+                    >
+                      Busque Seu Corretor
+                    </SelectItem>
+                    <SelectItem
+                      className="text-base font-normal text-dark-500"
+                      value={"8c678b28-88e2-4377-b80e-6f4fffdfa726"}
+                    >
+                      Elevate Films
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <div className="w-full">

@@ -22,10 +22,16 @@ CREATE TABLE "companies" (
 	"name" varchar(255) NOT NULL,
 	"email" text,
 	"cnpj" varchar(18),
-	"address" text,
 	"phone" varchar(15),
+	"street" varchar(255),
+	"complement" varchar(100),
+	"neighborhood" varchar(100),
+	"zip_code" varchar(20),
+	"city" varchar(100),
+	"state" varchar(50),
 	"created_at" timestamp with time zone DEFAULT now(),
-	"image" text DEFAULT '/user/profileImage/profileUrlPlaceHolder.png',
+	"image" text DEFAULT '/gear/covers/gearCoverPlaceHolder.png',
+	"notes" text,
 	CONSTRAINT "companies_id_unique" UNIQUE("id"),
 	CONSTRAINT "companies_email_unique" UNIQUE("email"),
 	CONSTRAINT "companies_cnpj_unique" UNIQUE("cnpj")
@@ -42,19 +48,28 @@ CREATE TABLE "company_responsibles" (
 CREATE TABLE "gear_equipments" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" varchar(255) NOT NULL,
-	"type" varchar(50) NOT NULL,
 	"brand" varchar(255) NOT NULL,
 	"model" varchar(255) NOT NULL,
-	"serial_number" varchar(255) NOT NULL,
+	"type" varchar(50) NOT NULL,
+	"status" varchar(50) DEFAULT 'AVAILABLE' NOT NULL,
 	"purchase_date" timestamp with time zone NOT NULL,
 	"purchase_value" varchar(20) NOT NULL,
-	"status" varchar(50) DEFAULT 'AVAILABLE' NOT NULL,
-	"notes" text,
+	"serial_number" varchar(255),
 	"cover_url" text NOT NULL,
+	"notes" text,
 	"created_at" timestamp with time zone DEFAULT now(),
 	"company_id" uuid,
 	CONSTRAINT "gear_equipments_id_unique" UNIQUE("id"),
 	CONSTRAINT "gear_equipments_serial_number_unique" UNIQUE("serial_number")
+);
+--> statement-breakpoint
+CREATE TABLE "property_coordinates" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"property_id" uuid,
+	"company_id" uuid,
+	"latitude" varchar NOT NULL,
+	"longitude" varchar NOT NULL,
+	CONSTRAINT "property_coordinates_id_unique" UNIQUE("id")
 );
 --> statement-breakpoint
 CREATE TABLE "users" (
@@ -91,4 +106,5 @@ CREATE TABLE "users" (
 ALTER TABLE "company_responsibles" ADD CONSTRAINT "company_responsibles_company_id_companies_id_fk" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "company_responsibles" ADD CONSTRAINT "company_responsibles_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "gear_equipments" ADD CONSTRAINT "gear_equipments_company_id_companies_id_fk" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "users" ADD CONSTRAINT "users_company_id_companies_id_fk" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE "property_coordinates" ADD CONSTRAINT "property_coordinates_company_id_companies_id_fk" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "users" ADD CONSTRAINT "users_company_id_companies_id_fk" FOREIGN KEY ("company_id") REFERENCES "public"."companies"("id") ON DELETE no action ON UPDATE no action;
