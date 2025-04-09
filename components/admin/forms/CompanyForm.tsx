@@ -21,23 +21,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 
 import { toast } from "@/hooks/use-toast"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
-import { Calendar } from "@/components/ui/calendar"
+
 import React from "react"
-import { format } from "date-fns"
-import { CalendarIcon } from "lucide-react"
 
 import { createCompany } from "@/lib/admin/actions/company"
 import { Separator } from "@/components/ui/separator"
