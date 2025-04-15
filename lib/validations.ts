@@ -85,8 +85,6 @@ export const gearSchema = z.object({
 })
 
 export const companySchema = z.object({
-  id: z.string().uuid().optional(), // ID gerado automaticamente
-
   name: z
     .string()
     .min(2, "O nome da empresa deve ter pelo menos 2 caracteres."),
@@ -109,4 +107,14 @@ export const companySchema = z.object({
   createdAt: z.date().default(new Date()), // Data de criação padrão
   notes: z.string(),
   image: z.string(),
+})
+
+export const coordinatesSchema = z.object({
+  name: z
+    .string()
+    .min(2, "O nome do marcador deve ter pelo menos 2 caracteres."),
+  propertyId: z.string().optional(),
+  companyId: z.string().optional(),
+  latitude: z.string(),
+  longitude: z.string(),
 })

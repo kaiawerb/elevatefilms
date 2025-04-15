@@ -124,6 +124,7 @@ export const gears = pgTable("gear_equipments", {
 
 export const propertyCoordinates = pgTable("property_coordinates", {
   id: uuid("id").notNull().primaryKey().defaultRandom().unique(),
+  name: varchar("name"),
   propertyId: uuid("property_id"), // se o id do imóvel for UUID, ou integer se for integer
   companyId: uuid("company_id").references(() => companies.id),
   latitude: varchar("latitude").notNull(),

@@ -128,12 +128,12 @@ interface UserParams {
   companyId?: string
 }
 
-export interface Column {
+interface Column {
   id: string | number
   title: string
 }
 
-export interface Task {
+interface Task {
   id: string | number
   columnId: string | number
   content: string
@@ -143,6 +143,23 @@ export interface Task {
   media?: string[]
   comments?: string[]
   createdAt?: string
+}
+
+type Marker = {
+  id?: string
+  lat: number
+  lng: number
+  name: string
+}
+
+interface CoordinateParams {
+  id?: string
+  latitude: string
+  longitude: string
+  name: string
+
+  companyId?: string // opcional
+  propertyId?: id
 }
 
 declare module "next-auth" {
