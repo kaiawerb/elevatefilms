@@ -150,6 +150,8 @@ type Marker = {
   lat: number
   lng: number
   name: string
+  propertyId?: string
+  companyId?: string
 }
 
 interface CoordinateParams {
@@ -159,7 +161,7 @@ interface CoordinateParams {
   name: string
 
   companyId?: string // opcional
-  propertyId?: id
+  propertyId?: string
 }
 
 declare module "next-auth" {

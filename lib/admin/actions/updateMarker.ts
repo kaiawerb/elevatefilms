@@ -6,7 +6,11 @@ import { eq } from "drizzle-orm"
 
 export const updateCoordinate = async (
   id: string,
-  updates: { name: string; latitude: string; longitude: string }
+  updates: {
+    name: string
+    latitude: string
+    longitude: string
+  }
 ) => {
   try {
     const result = await db

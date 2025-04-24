@@ -85,7 +85,6 @@ const MapPage = ({ initialMarkers }: { initialMarkers: any[] }) => {
         latitude: lat,
         longitude: lng,
         name,
-        // companyId, propertyId se aplicável
       })
 
       if (!validated.success) {
@@ -153,23 +152,6 @@ const MapPage = ({ initialMarkers }: { initialMarkers: any[] }) => {
       title: "Removido",
       description: "Marcador removido com sucesso!",
     })
-  }
-
-  const onSubmit = async (values: z.infer<typeof coordinatesSchema>) => {
-    const result = await createCoordinate(values)
-
-    if (result.success) {
-      toast({
-        title: "Success",
-        description: "Company created successfully",
-      })
-    } else {
-      toast({
-        title: "Error",
-        description: result.message,
-        variant: "destructive",
-      })
-    }
   }
 
   return (
