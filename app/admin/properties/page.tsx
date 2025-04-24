@@ -7,6 +7,7 @@ import { redirect } from "next/navigation"
 import PropertyCard from "@/components/property/PropertyCard"
 
 import PlaceHolderImage from "@/public/images/teste.png"
+import dummyProperties from "@/dummyProperties.json"
 
 const Page = async () => {
   const session = await auth()
@@ -27,12 +28,15 @@ const Page = async () => {
         </Button>
       </div>
 
-      <div className="mt-7 w-full overflow-hidden">
-        <PropertyCard
-          imageUrl={PlaceHolderImage.src}
-          name={"Encanto Cambará"}
-          city={"Cambará do Sul"}
-        />
+      <div className="mt-7 w-full overflow-hidden gap-3 flex flex-col">
+        {dummyProperties.map((property) => (
+          <PropertyCard
+            imageUrl={property.image}
+            name={property.title}
+            city={property.city}
+            key={property.title}
+          />
+        ))}
       </div>
     </section>
   )

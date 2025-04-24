@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Nogueiras do Vale",
+    "city": "Taquara",
+    "image": "/images/teste.png"
+  },
+  {
+    "title": "Encanto Cambará",
+    "city": "Cambará do Sul",
+    "image": "/images/imovel-001.png"
+  },
+  {
+    "title": "Residencial Aurora",
+    "city": "Gramado",
+    "image": "/images/imovel-002.png"
+  },
+  {
+    "title": "Chalé das Montanhas",
+    "city": "Canela",
+    "image": "/images/imovel-003.png"
+  },
+  {
+    "title": "Vila do Sol",
+    "city": "Nova Petrópolis",
+    "image": "/images/imovel-004.png"
+  },
+  {
+    "title": "Refúgio da Serra",
+    "city": "São Francisco de Paula",
+    "image": "/images/imovel-005.png"
+  },
+  {
+    "title": "Morada do Vale",
+    "city": "Três Coroas",
+    "image": "/images/imovel-006.png"
+  }
+]
