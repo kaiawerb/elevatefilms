@@ -22,7 +22,7 @@ import Image from "next/image"
 import { User } from "next-auth"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
-import { Eye, Pencil, Trash } from "lucide-react"
+import { Eye, Pencil, Trash, Trash2 } from "lucide-react"
 
 const Page = async () => {
   const session = await auth()
@@ -94,7 +94,21 @@ const Page = async () => {
                     ? new Date(user.createdAt).toLocaleDateString("pt-BR")
                     : "N/A"}
                 </TableCell>
-                <TableCell>Empty</TableCell>
+                <TableCell>
+                  <div className="flex gap-1">
+                    <button className="bg-slate-200 text-[#525252] rounded-full p-2">
+                      <Link href="/admin/users/new">
+                        <Eye size={20} strokeWidth={1.5} />
+                      </Link>
+                    </button>
+                    <button className="bg-[#EFA350] rounded-full p-2 text-white">
+                      <Pencil size={20} strokeWidth={1.5} />
+                    </button>
+                    <button className="bg-red-400 rounded-full p-2 text-white">
+                      <Trash2 size={20} strokeWidth={1.5} />
+                    </button>
+                  </div>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
