@@ -23,6 +23,8 @@ import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Eye, Pencil, Trash2 } from "lucide-react"
+import { DeleteButton } from "@/components/DeleteButton"
+import { deleteGear } from "@/lib/admin/actions/gears/deleteGear"
 
 const Page = async () => {
   const session = await auth()
@@ -95,9 +97,11 @@ const Page = async () => {
                     <button className="bg-[#EFA350] rounded-full p-2 text-white">
                       <Pencil size={20} strokeWidth={1.5} />
                     </button>
-                    <button className="bg-red-400 rounded-full p-2 text-white">
-                      <Trash2 size={20} strokeWidth={1.5} />
-                    </button>
+                    <DeleteButton
+                      id={gearItem.id || ""}
+                      deleteAction={deleteGear}
+                      itemType="equipamento"
+                    />
                   </div>
                 </TableCell>
               </TableRow>

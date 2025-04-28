@@ -21,7 +21,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 
 import { toast } from "@/hooks/use-toast"
-import { createGear } from "@/lib/admin/actions/gear"
+import { createGear } from "@/lib/admin/actions/gears/createGear"
 import {
   Select,
   SelectContent,
