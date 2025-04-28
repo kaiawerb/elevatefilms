@@ -5,14 +5,24 @@ import { db } from "@/database/drizzle"
 import { users } from "@/database/schema"
 import { eq } from "drizzle-orm"
 import { revalidatePath } from "next/cache"
-
+// actions/delete-user-action.ts
 export const deleteUser = async (id: string) => {
+  if (!id) return { success: false, message: "ID inválido" }
+
   try {
-    await db.delete(users).where(eq(users.id, id))
+    const [deleted] = await db
+      .delete(users)
+      .where(eq(users.id, id))
+      .returning({ id: users.id })
+
+    if (!deleted) {
+      return { success: false, message: "Usuário não encontrado" }
+    }
+
     revalidatePath("/admin/users")
     return { success: true }
   } catch (error) {
-    console.error("Erro ao deletar usuario:", error)
-    return { success: false, message: "Erro ao deletar usuario." }
+    console.error("Erro ao deletar:", error)
+    return { success: false, message: "Erro no servidor" }
   }
 }

@@ -1,83 +1,49 @@
 // components/delete-button.tsx
 "use client"
 
-import { useState, useTransition } from "react"
+import { useState } from "react"
 import { Trash2 } from "lucide-react"
-import { useRouter } from "next/navigation"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { deleteUser } from "@/lib/admin/actions/users/deleteUser"
+import { ConfirmationModal } from "./dialog/ConfirmDialog"
 
-export const DeleteButton = ({ id }: { id: string }) => {
+export function DeleteButton({ id }: { id: string }) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const { toast } = useToast()
-  const [isPending, startTransition] = useTransition()
-  const router = useRouter()
-  const [isOpen, setIsOpen] = useState(false)
 
-  const handleDelete = () => {
-    startTransition(async () => {
-      const result = await deleteUser(id)
+  const handleDelete = async () => {
+    const result = await deleteUser(id)
 
-      if (result?.success) {
-        toast({
-          title: "Sucesso",
-          description: "Usuário deletado com sucesso",
-        })
-        router.refresh()
-      } else {
-        toast({
-          title: "Erro",
-          description: result?.message || "Falha ao deletar usuário",
-          variant: "destructive",
-        })
-      }
-      setIsOpen(false)
-    })
+    if (result.success) {
+      toast({
+        title: "Sucesso",
+        description: "Usuário deletado com sucesso",
+      })
+    } else {
+      toast({
+        title: "Erro",
+        description: result.message || "Falha ao deletar usuário",
+        variant: "destructive",
+      })
+    }
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <button className="bg-red-400 rounded-full p-2 text-white">
-          <Trash2 size={20} strokeWidth={1.5} />
-        </button>
-      </DialogTrigger>
+    <>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className="bg-red-400 rounded-full p-2 text-white hover:bg-red-500 transition-colors"
+      >
+        <Trash2 size={20} strokeWidth={1.5} />
+      </button>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Confirmar exclusão</DialogTitle>
-          <DialogDescription>
-            Tem certeza que deseja excluir este usuário? Esta ação não pode ser
-            desfeita.
-          </DialogDescription>
-        </DialogHeader>
-
-        <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => setIsOpen(false)}
-            disabled={isPending}
-          >
-            Cancelar
-          </Button>
-          <Button
-            variant="destructive"
-            onClick={handleDelete}
-            disabled={isPending}
-          >
-            {isPending ? "Excluindo..." : "Confirmar Exclusão"}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        onConfirm={handleDelete}
+        title="Confirmar exclusão"
+        description="Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita."
+      />
+    </>
   )
 }
