@@ -23,6 +23,7 @@ import { User } from "next-auth"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import { Eye, Pencil, Trash, Trash2 } from "lucide-react"
+import { DeleteButton } from "@/components/DeleteButton"
 
 const Page = async () => {
   const session = await auth()
@@ -105,9 +106,7 @@ const Page = async () => {
                     <button className="bg-[#EFA350] rounded-full p-2 text-white">
                       <Pencil size={20} strokeWidth={1.5} />
                     </button>
-                    <button className="bg-red-400 rounded-full p-2 text-white">
-                      <Trash2 size={20} strokeWidth={1.5} />
-                    </button>
+                    <DeleteButton id={user.id} />
                   </div>
                 </TableCell>
               </TableRow>
