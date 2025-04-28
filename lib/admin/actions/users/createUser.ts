@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from "@/database/drizzle"
-import { gears, users } from "@/database/schema"
+import { users } from "@/database/schema"
 import { UserParams } from "@/types"
 
 export const createUser = async (params: UserParams) => {

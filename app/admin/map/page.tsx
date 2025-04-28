@@ -1,7 +1,7 @@
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import MapPage from "./MapPage"
-import { getCoordinates } from "@/lib/admin/actions/getMarkers"
+import { getCoordinates } from "@/lib/admin/actions/markers/getMarkers"
 
 const Page = async () => {
   const session = await auth() // 🔹 Continua funcionando no Server Side

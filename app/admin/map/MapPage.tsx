@@ -13,12 +13,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { CoordinateParams, Marker } from "@/types"
-import { createCoordinate } from "@/lib/admin/actions/createMarker"
+import { createCoordinate } from "@/lib/admin/actions/markers/createMarker"
 import { toast } from "@/hooks/use-toast"
 import { companySchema, coordinatesSchema } from "@/lib/validations"
 import { z } from "zod"
-import { deleteCoordinate } from "@/lib/admin/actions/deleteMarker"
-import { updateCoordinate } from "@/lib/admin/actions/updateMarker"
+import { deleteCoordinate } from "@/lib/admin/actions/markers/deleteMarker"
+import { updateCoordinate } from "@/lib/admin/actions/markers/updateMarker"
 
 const MapPage = ({ initialMarkers }: { initialMarkers: any[] }) => {
   const [markers, setMarkers] = useState<Marker[]>(

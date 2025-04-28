@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button"
 import { User } from "next-auth"
 
 import { toast } from "@/hooks/use-toast"
-import { createUser } from "@/lib/admin/actions/user"
+import { createUser } from "@/lib/admin/actions/users/createUser"
 import { hash } from "bcryptjs"
 import {
   Select,
