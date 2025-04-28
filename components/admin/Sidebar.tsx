@@ -12,6 +12,14 @@ import { Button } from "../ui/button"
 import { signOut } from "next-auth/react"
 import { useEffect, useState } from "react"
 import config from "@/lib/config"
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../ui/sheet"
 
 const Sidebar = ({ session }: { session: Session }) => {
   const pathName = usePathname()
@@ -92,7 +100,7 @@ const Sidebar = ({ session }: { session: Session }) => {
                     <p
                       className={cn(
                         "transition-all",
-                        isActive ? "text-white" : "text-dark",
+                        isActive ? "text-white" : "text-[#505158]",
                         "group-hover:text-white"
                       )}
                     >
@@ -106,34 +114,53 @@ const Sidebar = ({ session }: { session: Session }) => {
         </div>
       </div>
 
-      <div
-        className={cn("user items-center", collapsed && "justify-center px-2")}
-      >
-        <Avatar>
-          <AvatarFallback className="bg-gray-200">
-            <Image
-              src={`${config.env.imagekit.urlEndpoint}${session.user.image}`}
-              alt={`Profile Image ${session.user.fullname}`}
-              width={40}
-              height={40}
-              className="object-cover rounded-full"
-            />
-          </AvatarFallback>
-        </Avatar>
-        {!collapsed && (
-          <div className="flex flex-col max-md:hidden">
-            <p className="font-semibold text-dark-200">{session?.user?.name}</p>
-            <p className="text-xs text-light-500">{session?.user?.email}</p>
+      <Sheet>
+        <SheetTrigger asChild>
+          <div
+            className={cn(
+              "user items-center cursor-pointer flex gap-2",
+              collapsed && "justify-center px-2"
+            )}
+          >
+            <Avatar>
+              <AvatarFallback className="bg-gray-200">
+                <Image
+                  src={`${config.env.imagekit.urlEndpoint}${session.user.image}`}
+                  alt={`Profile Image ${session.user.fullname}`}
+                  width={40}
+                  height={40}
+                  className="object-cover rounded-full"
+                />
+              </AvatarFallback>
+            </Avatar>
+
+            {/* Só mostra o nome e email se não estiver collapsed */}
+            {!collapsed && (
+              <div className="flex flex-col max-md:hidden">
+                <p className="font-semibold text-dark-200">
+                  {session?.user?.name}
+                </p>
+                <p className="text-xs text-light-500">{session?.user?.email}</p>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      <Button
-        className="rounded-full"
-        variant="ghost"
-        onClick={() => signOut()}
-      >
-        <LogOutIcon className="text-red-600" />
-      </Button>
+        </SheetTrigger>
+
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>{session?.user?.name}</SheetTitle>
+            <SheetDescription>
+              Monitor all of your users and gears here
+            </SheetDescription>
+          </SheetHeader>
+          <Button
+            className="rounded-md bg-red-600 mt-8"
+            onClick={() => signOut()}
+          >
+            <LogOutIcon className="text-white" /> Logout
+          </Button>
+        </SheetContent>
+      </Sheet>
     </div>
   )
 }
