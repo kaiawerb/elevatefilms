@@ -50,7 +50,7 @@ const Page = async () => {
       <div className="mt-7 w-full overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="text-sm font-bold">
+            <TableRow className="text-sm font-bold bg-[#F8F8FF]/40 text-[#3A354E]">
               <TableHead>Nome</TableHead>
               <TableHead>CNPJ</TableHead>
               <TableHead>Telefone</TableHead>

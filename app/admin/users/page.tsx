@@ -53,7 +53,7 @@ const Page = async () => {
       <div className="mt-7 w-full overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="text-sm font-bold">
+            <TableRow className="text-sm font-bold bg-[#F8F8FF]/40 text-[#3A354E]">
               <TableHead>Nome e E-mail</TableHead>
               <TableHead>Tipo de usuário</TableHead>
               <TableHead>Gênero</TableHead>
@@ -83,6 +83,7 @@ const Page = async () => {
                     </Avatar>
                     <div className="flex flex-col max-md:hidden">
                       <p className="font-semibold">{user.fullname}</p>
+                      <p className="text-xs text-light-500">{user.email}</p>
                     </div>
                   </div>
                 </TableCell>
