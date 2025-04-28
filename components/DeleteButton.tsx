@@ -46,7 +46,7 @@ export function DeleteButton({
         isOpen={isModalOpen}
         onOpenChange={setIsModalOpen}
         onConfirm={handleDelete}
-        title={`Deletar ${itemType}?`}
+        title={`Deletar o ${itemType}?`}
         description={`Esta ação não pode ser desfeita.`}
       />
     </>

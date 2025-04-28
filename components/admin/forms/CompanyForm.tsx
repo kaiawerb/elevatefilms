@@ -24,7 +24,7 @@ import { toast } from "@/hooks/use-toast"
 
 import React from "react"
 
-import { createCompany } from "@/lib/admin/actions/company"
+import { createCompany } from "@/lib/admin/actions/companies/createCompany"
 import { Separator } from "@/components/ui/separator"
 
 interface Props extends Partial<Company> {

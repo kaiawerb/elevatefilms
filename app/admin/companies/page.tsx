@@ -20,6 +20,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import Image from "next/image"
 import config from "@/lib/config"
 import { Eye, Pencil, Trash2 } from "lucide-react"
+import { DeleteButton } from "@/components/DeleteButton"
+import { deleteCompany } from "@/lib/admin/actions/companies/deleteCompany"
 
 const Page = async () => {
   const session = await auth()
@@ -29,12 +31,12 @@ const Page = async () => {
     return null // Retorna null enquanto redireciona
   }
 
-  const companiesList = (await db
+  const companiesList = await db
     .select()
     .from(companies)
     .limit(10)
     .where(eq(companies.id, session.user.companyId))
-    .orderBy(desc(companies.createdAt))) as unknown as Company[]
+    .orderBy(desc(companies.createdAt))
 
   return (
     <section className="w-full rounded-2xl bg-white p-7">
@@ -96,9 +98,11 @@ const Page = async () => {
                     <button className="bg-[#EFA350] rounded-full p-2 text-white">
                       <Pencil size={20} strokeWidth={1.5} />
                     </button>
-                    <button className="bg-red-400 rounded-full p-2 text-white">
-                      <Trash2 size={20} strokeWidth={1.5} />
-                    </button>
+                    <DeleteButton
+                      deleteAction={deleteCompany}
+                      id={company.id}
+                      itemType="empresa"
+                    />
                   </div>
                 </TableCell>
               </TableRow>
