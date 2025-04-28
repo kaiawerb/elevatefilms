@@ -1,28 +1,36 @@
-// components/delete-button.tsx
+// components/ui/delete-button.tsx
 "use client"
 
-import { useState } from "react"
 import { Trash2 } from "lucide-react"
-import { useToast } from "@/hooks/use-toast"
-import { deleteUser } from "@/lib/admin/actions/users/deleteUser"
 import { ConfirmationModal } from "./dialog/ConfirmDialog"
+import { useToast } from "@/hooks/use-toast"
+import { useState } from "react"
 
-export function DeleteButton({ id }: { id: string }) {
+interface DeleteButtonProps {
+  id: string
+  deleteAction: (id: string) => Promise<{ success: boolean; message?: string }>
+  itemType: string
+  className?: string
+}
+
+export function DeleteButton({
+  id,
+  deleteAction,
+  itemType,
+  className = "bg-red-400 rounded-full p-2 text-white hover:bg-red-500",
+}: DeleteButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { toast } = useToast()
 
   const handleDelete = async () => {
-    const result = await deleteUser(id)
+    const result = await deleteAction(id) // ← Chama a ação injetada
 
     if (result.success) {
-      toast({
-        title: "Sucesso",
-        description: "Usuário deletado com sucesso",
-      })
+      toast({ title: "Sucesso", description: `${itemType} deletado(a)!` })
     } else {
       toast({
         title: "Erro",
-        description: result.message || "Falha ao deletar usuário",
+        description: result.message,
         variant: "destructive",
       })
     }
@@ -30,19 +38,16 @@ export function DeleteButton({ id }: { id: string }) {
 
   return (
     <>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="bg-red-400 rounded-full p-2 text-white hover:bg-red-500 transition-colors"
-      >
-        <Trash2 size={20} strokeWidth={1.5} />
+      <button onClick={() => setIsModalOpen(true)} className={className}>
+        <Trash2 size={20} />
       </button>
 
       <ConfirmationModal
         isOpen={isModalOpen}
         onOpenChange={setIsModalOpen}
         onConfirm={handleDelete}
-        title="Confirmar exclusão"
-        description="Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita."
+        title={`Deletar ${itemType}?`}
+        description={`Esta ação não pode ser desfeita.`}
       />
     </>
   )
