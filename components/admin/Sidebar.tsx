@@ -47,7 +47,7 @@ const Sidebar = ({ session }: { session: Session }) => {
     <div
       className={cn(
         "admin-sidebar transition-all duration-300",
-        collapsed ? "w-[100px] px-4" : "w-[332px] px-5"
+        collapsed ? "w-[100px] px-4" : "w-[300px] px-5"
       )}
     >
       <div>
