@@ -2,36 +2,43 @@
   {
     "title": "Nogueiras do Vale",
     "city": "Taquara",
-    "image": "/images/teste.png"
+    "image": "/images/teste.png",
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
   },
   {
     "title": "Encanto Cambará",
     "city": "Cambará do Sul",
-    "image": "/images/imovel-001.png"
+    "image": "/images/imovel-001.png",
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
   },
   {
     "title": "Residencial Aurora",
     "city": "Gramado",
-    "image": "/images/imovel-002.png"
+    "image": "/images/imovel-002.png",
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
   },
   {
     "title": "Chalé das Montanhas",
     "city": "Canela",
-    "image": "/images/imovel-003.png"
+    "image": "/images/imovel-003.png",
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
   },
   {
     "title": "Vila do Sol",
     "city": "Nova Petrópolis",
-    "image": "/images/imovel-004.png"
+    "image": "/images/imovel-004.png",
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
   },
   {
     "title": "Refúgio da Serra",
     "city": "São Francisco de Paula",
-    "image": "/images/imovel-005.png"
+    "image": "/images/imovel-005.png",
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
   },
   {
     "title": "Morada do Vale",
     "city": "Três Coroas",
-    "image": "/images/imovel-006.png"
+    "image": "/images/imovel-006.png",
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
   }
 ]

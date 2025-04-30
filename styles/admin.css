@@ -188,17 +188,4 @@
   .admin-sidebar .user {
     @apply my-8 flex w-full flex-row gap-2 rounded-full px-6 py-2 max-md:px-2;
   }
-
-  /* User Card */
-  .user-card {
-    @apply w-40 bg-light-300 py-4 px-3 flex justify-center items-center flex-col rounded-xl text-center;
-  }
-
-  .user-card .name {
-    @apply font-medium mt-3 text-dark-400 line-clamp-1 w-full break-words;
-  }
-
-  .user-card .email {
-    @apply text-light-500 text-sm line-clamp-1 break-words w-full;
-  }
 }
