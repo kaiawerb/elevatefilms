@@ -3,15 +3,15 @@ import React from "react"
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 
-import PlaceHolderImage from "@/public/images/placeholdertemp.png"
 import { Badge } from "@/components/ui/badge"
 import { HardDrive, MapIcon, MapPin, Phone } from "lucide-react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import Image from "next/image"
 import config from "@/lib/config"
-import { getInitials } from "@/lib/utils"
+import { cn, getInitials } from "@/lib/utils"
 
 import dummyProperties from "@/dummyProperties.json"
+import Link from "next/link"
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const session = await auth()
@@ -27,6 +27,21 @@ const Page = async ({ params }: { params: { id: string } }) => {
     return null
   }
 
+  const statusClasses = {
+    vendido: "bg-red-500 text-white", // Vermelho
+    "a venda": "bg-blue-600 text-white", // Azul
+    alugado: "bg-green-500 text-white", // Verde
+    reservado: "bg-yellow-400 text-black", // Amarelo
+    inativo: "bg-gray-500 text-white", // Cinza
+  } as const
+  type StatusKey = keyof typeof statusClasses
+  // Verificação segura do status
+  const getStatusClass = (status: string) => {
+    return statusClasses[status as StatusKey] || "bg-blue-600 text-white"
+  }
+
+  const mapsUrl = `https://www.google.com/maps?q=${property.coordinates?.lat},${property.coordinates?.lng}`
+
   return (
     <section className="rounded-2xl bg-white p-8 max-w-screen flex flex-col gap-6 xs:flex-row">
       <div className="w-full overflow-hidden gap-3 flex flex-col">
@@ -38,26 +53,33 @@ const Page = async ({ params }: { params: { id: string } }) => {
           className="object-cover bg-cover rounded-[12px]"
         />
         <div className="badges flex gap-2 mt-6">
-          <Badge className="rounded-full p-2 min-w-[100px] justify-center bg-primary-admin hover:bg-primary-admin/80">
-            Urbano
-          </Badge>
-          <Badge className="rounded-full p-2 min-w-[100px] justify-center bg-primary-admin hover:bg-primary-admin/80">
-            Rural
-          </Badge>
+          {property.tags.map((tags) => (
+            <Badge
+              key={tags}
+              className="capitalize rounded-full p-2 min-w-[100px] justify-center bg-primary-admin hover:bg-primary-admin/80"
+            >
+              {tags}
+            </Badge>
+          ))}
         </div>
 
         <div className="address flex w-full justify-between items-center mt-6">
           <div className="adress-info flex gap-1 flex-col">
             <h1 className="text-2xl font-semibold">
-              Morro do Leôncio, {property.city} - RS
+              {property.neighborhood}, {property.city} - {property.uf}
             </h1>
             <span className="flex gap-1">
-              <MapIcon color={"#25388C"} /> Anita Garibaldi, 1033.
+              <MapIcon color={"#25388C"} /> {property.street}
             </span>
           </div>
 
-          <button className="bg-primary-admin hover:bg-primary-admin/80 text-white w-[120px] justify-center text-center h-[40px] rounded-lg">
-            <MapPin size={24} strokeWidth={1.5} className="w-full" />
+          <button
+            className="bg-primary-admin hover:bg-primary-admin/80 text-white w-[120px] justify-center text-center h-[40px] rounded-lg"
+            aria-label="Abrir no Google Maps"
+          >
+            <Link href={mapsUrl} target="_blank">
+              <MapPin size={24} strokeWidth={1.5} className="w-full" />
+            </Link>
           </button>
         </div>
 
@@ -106,9 +128,18 @@ const Page = async ({ params }: { params: { id: string } }) => {
       </div>
 
       <div className="w-2/4 overflow-hidden gap-6 flex flex-col">
-        <div className="status flex flex-col justify-center text-center w-full h-[100px] bg-[#E05252] rounded-xl">
-          <h3 className="font-medium uppercase text-xl text-white">Vendido</h3>
-          <span className="text-white uppercase">Contrato em 03/07/2023</span>
+        <div
+          className={cn(
+            "flex flex-col justify-center text-center w-full h-[100px] rounded-xl",
+            getStatusClass(property.status.title)
+          )}
+        >
+          <h3 className="font-medium uppercase text-xl text-white">
+            {property.status.title}
+          </h3>
+          <span className="text-white uppercase">
+            {property.status.description}
+          </span>
         </div>
 
         <div className="owner-profile bg-slate-50 flex flex-col justify-center p-8 rounded-md items-center">

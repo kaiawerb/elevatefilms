@@ -3,49 +3,129 @@
     "id": "abc123-03",
     "title": "Nogueiras do Vale",
     "city": "Taquara",
+    "uf": "RS",
+    "neighborhood": "Freguesia do Mundo Novo",
+    "street": "Carlos Schummaer, 123.",
     "image": "/images/placeholdertemp.png",
-    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "tags": ["rural", "chácara"],
+    "status": {
+      "title": "A venda",
+      "description": "Contrato em 08/05/2023"
+    }
   },
   {
     "id": "abc123-04",
     "title": "Encanto Cambará",
-    "city": "Cambará do Sul",
+    "city": "Parobé",
+    "uf": "RS",
+    "neighborhood": "Areia Branca",
+    "street": "Jose Augusto, 33.",
     "image": "/images/imovel-001.png",
-    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "tags": ["rural", "chácara"],
+    "coordinates": {
+      "lat": -29.650833,
+      "lng": -50.780833
+    },
+    "status": {
+      "title": "inativo",
+      "description": "Contrato em 08/05/2023"
+    }
   },
   {
     "id": "abc123-05",
     "title": "Residencial Aurora",
-    "city": "Gramado",
+    "city": "Taquara",
+    "uf": "RS",
+    "neighborhood": "Morro do Leôncio",
+    "street": "Anita Garibaldi, 1033.",
     "image": "/images/imovel-002.png",
-    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "tags": ["urbano", "residencial"],
+    "coordinates": {
+      "lat": -29.650833,
+      "lng": -50.780833
+    },
+    "status": {
+      "title": "A venda",
+      "description": "Contrato em 08/05/2023"
+    }
   },
   {
     "id": "abc123-06",
     "title": "Chalé das Montanhas",
-    "city": "Canela",
+    "city": "Taquara",
+    "uf": "RS",
+    "neighborhood": "Poço Fundo",
+    "street": "Carlos Kroeff, 133.",
     "image": "/images/imovel-003.png",
-    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "tags": ["rural", "chácara"],
+    "coordinates": {
+      "lat": -29.650833,
+      "lng": -50.780833
+    },
+    "status": {
+      "title": "alugado",
+      "description": "Contrato em 08/05/2023"
+    }
   },
   {
     "id": "abc123-07",
     "title": "Vila do Sol",
-    "city": "Nova Petrópolis",
+    "city": "Taquara",
+    "uf": "RS",
+    "neighborhood": "Santa Maria",
+    "street": "Anita Manoela, 1033.",
     "image": "/images/imovel-004.png",
-    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "tags": ["rural", "chácara", "3000m²"],
+    "coordinates": {
+      "lat": -29.650833,
+      "lng": -50.780833
+    },
+    "status": {
+      "title": "A venda",
+      "description": "Contrato em 08/05/2023"
+    }
   },
   {
     "id": "abc123-08",
     "title": "Refúgio da Serra",
-    "city": "São Francisco de Paula",
+    "city": "Três Coroas",
+    "uf": "RS",
+    "neighborhood": "Linha Café",
+    "street": "Guaruja, 115.",
     "image": "/images/imovel-005.png",
-    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "tags": ["rural", "sitio"],
+    "coordinates": {
+      "lat": -29.650833,
+      "lng": -50.780833
+    },
+    "status": {
+      "title": "Vendido",
+      "description": "Contrato em 08/05/2023"
+    }
   },
   {
     "id": "abc123-09",
     "title": "Morada do Vale",
-    "city": "Três Coroas",
+    "city": "Igrejinha",
+    "uf": "RS",
+    "neighborhood": "Nova Aurora",
+    "street": "Hortensias, 1033.",
     "image": "/images/imovel-006.png",
-    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX"
+    "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "tags": ["rural", "fazenda"],
+    "coordinates": {
+      "lat": -29.650833,
+      "lng": -50.780833
+    },
+    "status": {
+      "title": "A venda",
+      "description": "Contrato em 08/05/2023"
+    }
   }
 ]
