@@ -1,38 +1,41 @@
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import React from "react"
 
 import { auth } from "@/auth"
 import { redirect } from "next/navigation"
-import PropertyCard from "@/components/property/PropertyCard"
 
 import PlaceHolderImage from "@/public/images/placeholdertemp.png"
-import dummyProperties from "@/dummyProperties.json"
 import { Badge } from "@/components/ui/badge"
-import { HardDrive, MapIcon, MapPin, Phone, Trash2 } from "lucide-react"
+import { HardDrive, MapIcon, MapPin, Phone } from "lucide-react"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import Image from "next/image"
 import config from "@/lib/config"
 import { getInitials } from "@/lib/utils"
-import { Separator } from "@/components/ui/separator"
 
-const Page = async () => {
+import dummyProperties from "@/dummyProperties.json"
+
+const Page = async ({ params }: { params: { id: string } }) => {
   const session = await auth()
+  const property = dummyProperties.find((prop) => prop.id === params.id)
 
   if (!session) {
     redirect("/sign-in") // Redireciona para a página de login
     return null // Retorna null enquanto redireciona
   }
 
+  if (!property) {
+    redirect("/admin/properties") // Redireciona se não encontrar o imóvel
+    return null
+  }
+
   return (
     <section className="rounded-2xl bg-white p-8 max-w-screen flex flex-col gap-6 xs:flex-row">
       <div className="w-full overflow-hidden gap-3 flex flex-col">
         <Image
-          src={PlaceHolderImage.src}
-          alt={`Profile Image ${session.user.fullname}`}
+          src={property.image}
+          alt={`Propriedade ${property.title}`}
           width={860}
           height={512}
-          className="object-cover"
+          className="object-cover bg-cover rounded-[12px]"
         />
         <div className="badges flex gap-2 mt-6">
           <Badge className="rounded-full p-2 min-w-[100px] justify-center bg-primary-admin hover:bg-primary-admin/80">
@@ -46,7 +49,7 @@ const Page = async () => {
         <div className="address flex w-full justify-between items-center mt-6">
           <div className="adress-info flex gap-1 flex-col">
             <h1 className="text-2xl font-semibold">
-              Morro do Leôncio, Taquara - RS
+              Morro do Leôncio, {property.city} - RS
             </h1>
             <span className="flex gap-1">
               <MapIcon color={"#25388C"} /> Anita Garibaldi, 1033.

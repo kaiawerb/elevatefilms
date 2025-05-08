@@ -7,18 +7,22 @@ import {
 } from "@/components/ui/card"
 
 import { Pencil, Eye, Trash2 } from "lucide-react"
+import Link from "next/link"
 
 type PropertyCardProps = {
   imageUrl: string
   name: string
   city: string
+  id: string
 }
 
-const PropertyCard = ({ imageUrl, name, city }: PropertyCardProps) => {
+const PropertyCard = ({ imageUrl, name, city, id }: PropertyCardProps) => {
   return (
     <Card
-      className="relative border-none flex min-h-[152px] w-full justify-between items-center bg-no-repeat bg-cover"
-      style={{ backgroundImage: `url(${imageUrl})` }}
+      className="relative border-none flex min-h-[152px] w-full justify-between items-center bg-no-repeat bg-cover bg-center"
+      style={{
+        backgroundImage: `url(${imageUrl})`,
+      }}
     >
       {/* Overlay para escurecer a imagem */}
       <div className="absolute inset-0 bg-black opacity-30 rounded-xl" />
@@ -30,7 +34,9 @@ const PropertyCard = ({ imageUrl, name, city }: PropertyCardProps) => {
       <CardContent className="relative mt-auto items-center">
         <div className="flex gap-2">
           <button className="bg-white text-[#525252] rounded-full p-2">
-            <Eye size={20} strokeWidth={1.5} />
+            <Link href={`/admin/properties/view/${id}`}>
+              <Eye size={20} strokeWidth={1.5} />
+            </Link>
           </button>
           <button className="bg-[#EFA350] rounded-full p-2 text-white">
             <Pencil size={20} strokeWidth={1.5} />

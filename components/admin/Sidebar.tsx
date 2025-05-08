@@ -26,6 +26,8 @@ const Sidebar = ({ session }: { session: Session }) => {
   const [collapsed, setCollapsed] = useState(false)
   const [mounted, setMounted] = useState(false)
 
+  console.log(session?.user?.image)
+
   useEffect(() => {
     setMounted(true)
     const savedState = localStorage.getItem("sidebar-collapsed")
@@ -153,6 +155,13 @@ const Sidebar = ({ session }: { session: Session }) => {
               Monitor all of your users and gears here
             </SheetDescription>
           </SheetHeader>
+          <Image
+            src={`${config.env.imagekit.urlEndpoint}${session.user.image}`}
+            alt={`Profile Image ${session.user.fullname}`}
+            width={40}
+            height={40}
+            className="object-cover rounded-full"
+          />
           <Button
             className="rounded-md bg-red-600 mt-8"
             onClick={() => signOut()}

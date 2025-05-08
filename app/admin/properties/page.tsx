@@ -6,7 +6,6 @@ import { auth } from "@/auth"
 import { redirect } from "next/navigation"
 import PropertyCard from "@/components/property/PropertyCard"
 
-import PlaceHolderImage from "@/public/images/teste.png"
 import dummyProperties from "@/dummyProperties.json"
 
 const Page = async () => {
@@ -31,10 +30,11 @@ const Page = async () => {
       <div className="mt-7 w-full overflow-hidden gap-3 flex flex-col">
         {dummyProperties.map((property) => (
           <PropertyCard
+            key={property.id}
             imageUrl={property.image}
             name={property.title}
             city={property.city}
-            key={property.title}
+            id={property.id}
           />
         ))}
       </div>

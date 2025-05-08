@@ -71,8 +71,8 @@ const Page = async () => {
                   <Image
                     src={`${config.env.imagekit.urlEndpoint}${gearItem.coverUrl}`}
                     alt="Gear Cover"
-                    width={64}
-                    height={64}
+                    width={56}
+                    height={56}
                     className="object-cover rounded-sm"
                   />
                   {gearItem.name}

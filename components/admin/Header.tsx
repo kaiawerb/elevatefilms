@@ -7,7 +7,7 @@ import { LogOutIcon } from "lucide-react"
 
 const Header = ({ session }: { session: Session }) => {
   return (
-    <header className="admin-header font-ibm-plex-sans">
+    <header className="admin-header font-ibm-plex-sans items-center">
       <div>
         <h2 className="text-2xl font-semibold text-dark-400">
           {session?.user?.name}
@@ -17,13 +17,7 @@ const Header = ({ session }: { session: Session }) => {
           Monitor all of your users and gears here
         </p>
       </div>
-      {/* <Button
-        className="rounded-full"
-        variant="ghost"
-        onClick={() => signOut()}
-      >
-        <LogOutIcon className="text-red-600" />
-      </Button> */}
+      <button>Search</button>
     </header>
   )
 }
