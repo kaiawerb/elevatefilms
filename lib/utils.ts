@@ -26,3 +26,21 @@ export const formatStatus = (status: string) => {
     .replace(/_/g, " ") // Substitui "_" por espaço
     .replace(/\b\w/g, (char) => char.toUpperCase()) // Capitaliza cada palavra
 }
+
+export const formatPhoneNumber = (phone: string | number): string => {
+  // Garante que é uma string sem caracteres estranhos
+  const cleaned = phone.toString().replace(/\D/g, "")
+
+  // Formato para números com DDD e 9 dígitos (ex: 51985488659)
+  if (cleaned.length === 11) {
+    return cleaned.replace(/^(\d{2})(\d{1})(\d{4})(\d{4})$/, "$1 $2 $3-$4")
+  }
+
+  // Formato para números com DDD e 8 dígitos (ex: 5185488659)
+  if (cleaned.length === 10) {
+    return cleaned.replace(/^(\d{2})(\d{4})(\d{4})$/, "$1 $2-$3")
+  }
+
+  // Se não bater os padrões conhecidos, retorna sem alteração
+  return phone.toString()
+}

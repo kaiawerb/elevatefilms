@@ -26,8 +26,6 @@ const Sidebar = ({ session }: { session: Session }) => {
   const [collapsed, setCollapsed] = useState(false)
   const [mounted, setMounted] = useState(false)
 
-  console.log(session?.user?.image)
-
   useEffect(() => {
     setMounted(true)
     const savedState = localStorage.getItem("sidebar-collapsed")

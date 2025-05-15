@@ -25,11 +25,6 @@ export const adminSideBarLinks = [
     text: "Equipamentos",
   },
   {
-    img: "/icons/admin/square-kanban.svg",
-    route: "/admin/board",
-    text: "Quadro",
-  },
-  {
     img: "/icons/admin/map-pin-house.svg",
     route: "/admin/map",
     text: "Mapa",
