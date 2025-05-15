@@ -8,11 +8,32 @@
     "street": "Carlos Schummaer, 123.",
     "image": "/images/placeholdertemp.png",
     "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "phone": "51980493798",
     "tags": ["rural", "chácara"],
     "status": {
       "title": "A venda",
       "description": "Contrato em 08/05/2023"
-    }
+    },
+    "agents": [
+      {
+        "name": "Carlos Ribeiro",
+        "role": "Corretor Responsável",
+        "imageUrl": "/user/profileImage/profileMan.jpg"
+      },
+      {
+        "name": "Ana Souza",
+        "role": "Assistente de Vendas",
+        "imageUrl": "/user/profileImage/profileWoman.jpg"
+      }
+    ],
+    "features": [
+      {
+        "name": "10 Hectares",
+        "iconName": "TreeDeciduous"
+      },
+      { "name": "Energia Trifasica", "iconName": "UtilityPole" },
+      { "name": "Escritura", "iconName": "Scroll" }
+    ]
   },
   {
     "id": "abc123-04",
@@ -23,6 +44,7 @@
     "street": "Jose Augusto, 33.",
     "image": "/images/imovel-001.png",
     "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "phone": "51980162527",
     "tags": ["rural", "chácara"],
     "coordinates": {
       "lat": -29.650833,
@@ -31,7 +53,19 @@
     "status": {
       "title": "inativo",
       "description": "Contrato em 08/05/2023"
-    }
+    },
+    "agents": [
+      {
+        "name": "Carlos Ribeiro",
+        "role": "Corretor Responsável",
+        "imageUrl": "/user/profileImage/profileMan.jpg"
+      },
+      {
+        "name": "Ana Souza",
+        "role": "Assistente de Vendas",
+        "imageUrl": "/user/profileImage/profileWoman.jpg"
+      }
+    ]
   },
   {
     "id": "abc123-05",
@@ -42,6 +76,7 @@
     "street": "Anita Garibaldi, 1033.",
     "image": "/images/imovel-002.png",
     "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "phone": "51980493798",
     "tags": ["urbano", "residencial"],
     "coordinates": {
       "lat": -29.650833,
@@ -50,7 +85,19 @@
     "status": {
       "title": "A venda",
       "description": "Contrato em 08/05/2023"
-    }
+    },
+    "agents": [
+      {
+        "name": "Carlos Ribeiro",
+        "role": "Corretor Responsável",
+        "imageUrl": "/user/profileImage/profileMan.jpg"
+      },
+      {
+        "name": "Ana Souza",
+        "role": "Assistente de Vendas",
+        "imageUrl": "/user/profileImage/profileWoman.jpg"
+      }
+    ]
   },
   {
     "id": "abc123-06",
@@ -61,6 +108,7 @@
     "street": "Carlos Kroeff, 133.",
     "image": "/images/imovel-003.png",
     "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "phone": "51980493798",
     "tags": ["rural", "chácara"],
     "coordinates": {
       "lat": -29.650833,
@@ -69,7 +117,19 @@
     "status": {
       "title": "alugado",
       "description": "Contrato em 08/05/2023"
-    }
+    },
+    "agents": [
+      {
+        "name": "Carlos Ribeiro",
+        "role": "Corretor Responsável",
+        "imageUrl": "/user/profileImage/profileMan.jpg"
+      },
+      {
+        "name": "Ana Souza",
+        "role": "Assistente de Vendas",
+        "imageUrl": "/user/profileImage/profileWoman.jpg"
+      }
+    ]
   },
   {
     "id": "abc123-07",
@@ -80,6 +140,7 @@
     "street": "Anita Manoela, 1033.",
     "image": "/images/imovel-004.png",
     "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "phone": "51980493798",
     "tags": ["rural", "chácara", "3000m²"],
     "coordinates": {
       "lat": -29.650833,
@@ -88,7 +149,19 @@
     "status": {
       "title": "A venda",
       "description": "Contrato em 08/05/2023"
-    }
+    },
+    "agents": [
+      {
+        "name": "Carlos Ribeiro",
+        "role": "Corretor Responsável",
+        "imageUrl": "/user/profileImage/profileMan.jpg"
+      },
+      {
+        "name": "Ana Souza",
+        "role": "Assistente de Vendas",
+        "imageUrl": "/user/profileImage/profileWoman.jpg"
+      }
+    ]
   },
   {
     "id": "abc123-08",
@@ -99,6 +172,7 @@
     "street": "Guaruja, 115.",
     "image": "/images/imovel-005.png",
     "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "phone": "51980493798",
     "tags": ["rural", "sitio"],
     "coordinates": {
       "lat": -29.650833,
@@ -107,7 +181,19 @@
     "status": {
       "title": "Vendido",
       "description": "Contrato em 08/05/2023"
-    }
+    },
+    "agents": [
+      {
+        "name": "Carlos Ribeiro",
+        "role": "Corretor Responsável",
+        "imageUrl": "/user/profileImage/profileMan.jpg"
+      },
+      {
+        "name": "Ana Souza",
+        "role": "Assistente de Vendas",
+        "imageUrl": "/user/profileImage/profileWoman.jpg"
+      }
+    ]
   },
   {
     "id": "abc123-09",
@@ -118,6 +204,7 @@
     "street": "Hortensias, 1033.",
     "image": "/images/imovel-006.png",
     "driveUrl": "https://drive.google.com/drive/u/1/folders/1-EW-cLV84jdmtyIDnZ8BGeU_z4IkJQkX",
+    "phone": "51980493798",
     "tags": ["rural", "fazenda"],
     "coordinates": {
       "lat": -29.650833,
@@ -126,6 +213,23 @@
     "status": {
       "title": "A venda",
       "description": "Contrato em 08/05/2023"
-    }
+    },
+    "agents": [
+      {
+        "name": "Carlos Ribeiro",
+        "role": "Corretor Responsável",
+        "imageUrl": "/user/profileImage/profileMan.jpg"
+      },
+      {
+        "name": "Carlos Ribeiro",
+        "role": "Corretor Responsável",
+        "imageUrl": "/user/profileImage/profileMan.jpg"
+      },
+      {
+        "name": "Ana Souza",
+        "role": "Assistente de Vendas",
+        "imageUrl": "/user/profileImage/profileWoman.jpg"
+      }
+    ]
   }
 ]
